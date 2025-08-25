@@ -1,56 +1,20 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.propertymanagement.android.library)
+    alias(libs.plugins.propertymanagement.android.library.compose)
 }
 
 android {
-    namespace = "org.sandw.core.ui"
-    compileSdk = 35
-
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+    namespace = "org.stkachenko.propertymanagement.core.ui"
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.foundation.android)
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.navigation.runtime.ktx)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.material3.android)
-
-    implementation(libs.material)
-
-    implementation(libs.coil.kt)
-    implementation(libs.coil.kt.compose)
-
     api(projects.core.designsystem)
     api(projects.core.model)
 
-    implementation(libs.androidx.ui.tooling.preview.android)
+    implementation(libs.androidx.browser)
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.compose)
 
-    testImplementation(libs.junit)
-
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
+    androidTestImplementation(libs.bundles.androidx.compose.ui.test)
+    androidTestImplementation(projects.core.testing)
 }

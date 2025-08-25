@@ -1,22 +1,10 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.propertymanagement.android.library)
     alias(libs.plugins.protobuf)
 }
 
 android {
-    namespace = "org.sandw.core.datastore.proto"
-    compileSdk = 35
-
-    sourceSets {
-        getByName("main") {
-
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+    namespace = "org.stkachenko.propertymanagement.core.datastore.proto"
 }
 
 protobuf {
@@ -38,14 +26,10 @@ protobuf {
 }
 
 androidComponents.beforeVariants {
-    android.sourceSets.getByName(it.name) {
+    android.sourceSets.register(it.name) {
         val buildDir = layout.buildDirectory.get().asFile
-        java {
-            srcDir(buildDir.resolve("generated/source/proto/${it.name}/java"))
-        }
-        kotlin {
-            srcDir(buildDir.resolve("generated/source/proto/${it.name}/kotlin"))
-        }
+        java.srcDir(buildDir.resolve("generated/source/proto/${it.name}/java"))
+        kotlin.srcDir(buildDir.resolve("generated/source/proto/${it.name}/kotlin"))
     }
 }
 

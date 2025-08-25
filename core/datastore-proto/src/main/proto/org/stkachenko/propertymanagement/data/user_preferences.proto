@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "org/stkachenko/propertymanagement/data/dark_theme_config.proto";
+
+option java_package = "org.stkachenko.propertymanagement.core.datastore";
+option java_multiple_files = true;
+
+message UserPreferences {
+  DarkThemeConfigProto dark_theme_config = 1;
+  bool use_dynamic_color = 2;
+
+  int32 userChangeListVersion = 3;
+  int32 profileChangeListVersion = 4;
+
+  int32 propertyChangeListVersion = 5;
+
+  int32 chatChangeListVersion = 6;
+  int32 chatParticipantChangeListVersion = 7;
+  int32 messageChangeListVersion = 8;
+
+  int32 paymentChangeListVersion = 9;
+  int32 invoiceChangeListVersion = 10;
+  int32 paymentScheduleChangeListVersion = 11;
+
+  int32 rentalAgreementChangeListVersion = 12;
+  int32 rentalInviteChangeListVersion = 13;
+  int32 rentalOfferChangeListVersion = 14;
+
+  int32 imageChangeListVersion = 15;
+  int32 imageAttachmentChangeListVersion = 16;
+}

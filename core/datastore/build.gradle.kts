@@ -1,15 +1,12 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.hilt.android)
-    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.propertymanagement.android.library)
+    alias(libs.plugins.propertymanagement.hilt)
 }
 
 android {
-    namespace = "org.sandw.core.datastore"
-    compileSdk = 35
+    namespace = "org.stkachenko.propertymanagement.core.datastore"
 
     defaultConfig {
-        minSdk = 24
         consumerProguardFiles("consumer-proguard-rules.pro")
     }
     testOptions {
@@ -17,18 +14,12 @@ android {
             isReturnDefaultValues = true
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
 }
 
 dependencies {
     api(libs.androidx.datastore)
-    implementation(projects.core.datastoreProto)
+    api(projects.core.datastoreProto)
     api(projects.core.model)
 
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
+    implementation(projects.core.common)
 }

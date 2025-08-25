@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">property-management-android</string>
+    <string name="app_name">Property Management</string>
+    <string name="not_connected">⚠️ You aren’t connected to the internet</string>
+
 </resources>

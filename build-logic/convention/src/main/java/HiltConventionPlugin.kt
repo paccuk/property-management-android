@@ -2,7 +2,7 @@ import com.android.build.gradle.api.AndroidBasePlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
-import org.sandw.convention.libs
+import org.stkachenko.propertymanagement.convention.libs
 
 class HiltConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {

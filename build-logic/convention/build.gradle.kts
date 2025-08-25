@@ -2,16 +2,16 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "pma.buildlogic"
+group = "org.stkachenko.propertymanagement.buildlogic"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
 
@@ -21,6 +21,7 @@ dependencies {
     compileOnly(libs.compose.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
     implementation(libs.truth)
 }
 
@@ -33,37 +34,45 @@ tasks {
 
 gradlePlugin {
     plugins {
-        register("androidApplicationCompose") {
-            id = "pma.application.compose"
-            implementationClass = "AndroidApplicationComposeConventionPlugin"
-        }
         register("androidApplication") {
-            id = "pma.android.application"
+            id = "propertymanagement.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidApplicationCompose") {
+            id = "propertymanagement.android.application.compose"
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
         register("androidLibraryCompose") {
-            id = "pma.android.library.compose"
+            id = "propertymanagement.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidLibrary") {
-            id = "pma.android.library"
+            id = "propertymanagement.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidFeature") {
-            id = "pma.android.feature"
+            id = "propertymanagement.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
         register("androidTest") {
-            id = "pma.android.test"
+            id = "propertymanagement.android.test"
             implementationClass = "AndroidTestConventionPlugin"
         }
+        register("androidRoom") {
+            id = "propertymanagement.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
+        }
         register("hilt") {
-            id = "pma.hilt"
+            id = "propertymanagement.hilt"
             implementationClass = "HiltConventionPlugin"
         }
         register("jvmLibrary") {
-            id = "pma.jvm.library"
+            id = "propertymanagement.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
+        }
+        register("androidApplicationFlavors") {
+            id = "propertymanagement.android.application.flavors"
+            implementationClass = "AndroidApplicationFlavorsConventionPlugin"
         }
     }
 }

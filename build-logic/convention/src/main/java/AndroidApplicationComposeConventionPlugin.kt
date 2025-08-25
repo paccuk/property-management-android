@@ -3,13 +3,13 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getByType
-import org.sandw.convention.configureAndroidCompose
+import org.stkachenko.propertymanagement.convention.configureAndroidCompose
 
 class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply("com.android.application")
-            apply("org.jetbrains.kotlin.plugin.compose")
+            apply(plugin = "com.android.application")
+            apply(plugin = "org.jetbrains.kotlin.plugin.compose")
 
             val extension = extensions.getByType<ApplicationExtension>()
             configureAndroidCompose(extension)
