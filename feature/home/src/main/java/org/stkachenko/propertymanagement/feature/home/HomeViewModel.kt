@@ -11,6 +11,7 @@ import org.stkachenko.propertymanagement.core.data.repository.property.Propertie
 import org.stkachenko.propertymanagement.core.data.repository.userdata.UserDataRepository
 import org.stkachenko.propertymanagement.core.data.util.SyncManager
 import org.stkachenko.propertymanagement.core.domain.property.GetPropertiesUseCase
+import org.stkachenko.propertymanagement.core.ui.PropertyListUiState
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,13 +28,13 @@ class HomeViewModel @Inject constructor(
             initialValue = false,
         )
 
-    val propertiesUiState: StateFlow<PropertiesUiState> =
+    val propertiesUiState: StateFlow<PropertyListUiState> =
         getProperties("")
-            .map(PropertiesUiState::Success)
+            .map(PropertyListUiState::Success)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = PropertiesUiState.Loading,
+                initialValue = PropertyListUiState.Loading,
             )
 
 

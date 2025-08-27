@@ -11,7 +11,7 @@ const val HOME_ROUTE = "home_route"
 fun NavController.navigateToHome(navOptions: NavOptions) = navigate(HOME_ROUTE, navOptions)
 
 fun NavGraphBuilder.homeScreen(
-    onPropertyClick: (String) -> Unit,
+    onPropertyClick: () -> Unit,
 ) {
     composable(route = HOME_ROUTE) {
         HomeRoute(onPropertyClick)

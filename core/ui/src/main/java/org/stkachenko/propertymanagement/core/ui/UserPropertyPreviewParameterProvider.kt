@@ -54,7 +54,13 @@ object PreviewParameterData {
             attributes = mapOf(
                 "hasGarage" to "true",
             ),
-            images = emptyList(),
+            images = listOf(
+                Image(
+                    "1",
+                    "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    0
+                )
+            ),
             createdAt = System.currentTimeMillis(),
             updatedAt = System.currentTimeMillis(),
         ),
