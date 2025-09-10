@@ -2,4 +2,11 @@
 <resources>
     <string name="feature_home_title">Home</string>
     <string name="feature_home_loading_content_description">Loading content</string>
+    
+    <!-- Home screen categories -->
+    <string name="feature_home_properties_category">Properties</string>
+    <string name="feature_home_chats_category">Chats</string>
+    <string name="feature_home_statistics_category">Statistics</string>
+    <string name="feature_home_profile_category">Profile</string>
+    <string name="feature_home_category_see_all">See all</string>
 </resources>

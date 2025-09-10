@@ -3,7 +3,7 @@ package org.stkachenko.propertymanagement.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import org.stkachenko.propertymanagement.feature.home.navigation.HOME_ROUTE
+import org.stkachenko.propertymanagement.core.navigation_contract.HomeDestination.HOME_ROUTE
 import org.stkachenko.propertymanagement.feature.home.navigation.homeScreen
 import org.stkachenko.propertymanagement.ui.PmAppState
 
@@ -20,9 +20,12 @@ fun PmNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        homeScreen(onPropertyClick = navController::navigateToPropertyDetails) // TODO(Повинно спрямовувати на конкретну нерухомість за ID)
+        homeScreen(
+            onPropertyClick = navController::navigateToPropertyDetails,
+            navController = navController
+        )
         propertiesScreen(onPropertyClick = navController::navigateToPropertyDetails)
-        chatsScreen(onChatClick = navController::navigateToChatDetails) // TODO(Повинно спрямовувати на конкретний чат за ID)
+        chatsScreen(onChatClick = navController::navigateToChatDetails)
         profileScreen(onEditProfileClick = navController::navigateToEditProfile)
     }
 }
