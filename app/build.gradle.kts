@@ -54,7 +54,6 @@ android {
 
 dependencies {
     // Feature Modules
-    implementation(projects.feature.home)
     implementation(projects.feature.properties)
     implementation(projects.feature.profile)
     implementation(projects.feature.chats)

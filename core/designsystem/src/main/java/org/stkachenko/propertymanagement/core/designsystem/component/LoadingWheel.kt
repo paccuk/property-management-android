@@ -123,15 +123,13 @@ fun PmOverlayLoadingWheel(
         modifier = modifier
             .size(60.dp),
     ) {
-        PmLoadingWheel(
-            contentDesc = contentDesc,
-        )
+        PmLoadingWheel(contentDesc = contentDesc)
     }
 }
 
 @ThemePreviews
 @Composable
-fun NiaLoadingWheelPreview() {
+fun PmLoadingWheelPreview() {
     PmTheme {
         Surface {
             PmLoadingWheel(contentDesc = "LoadingWheel")
@@ -141,7 +139,7 @@ fun NiaLoadingWheelPreview() {
 
 @ThemePreviews
 @Composable
-fun NiaOverlayLoadingWheelPreview() {
+fun PmOverlayLoadingWheelPreview() {
     PmTheme {
         Surface {
             PmOverlayLoadingWheel(contentDesc = "LoadingWheel")

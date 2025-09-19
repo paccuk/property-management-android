@@ -22,6 +22,10 @@ internal class OfflineFirstPropertiesRepository @Inject constructor(
         propertyDao.getPropertyEntitiesByOwnerId(id)
             .map { it.asExternalModel() }
 
+    override fun getPropertyById(id: String): Flow<Property?> =
+        propertyDao.getPropertyEntityById(id)
+            .map { it.asExternalModel().firstOrNull() }
+
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean =
         synchronizer.changeListSync(
             versionReader = ChangeListVersions::propertyVersion,

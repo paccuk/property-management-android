@@ -17,7 +17,7 @@ interface UserDao {
             WHERE id = :id
         """,
     )
-    fun getUserEntity(id: String): Flow<UserEntity>
+    fun getUserEntityById(id: String): Flow<UserEntity>
 
     @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
     suspend fun insertOrIgnoreUsers(entities: List<UserEntity>): List<Long>

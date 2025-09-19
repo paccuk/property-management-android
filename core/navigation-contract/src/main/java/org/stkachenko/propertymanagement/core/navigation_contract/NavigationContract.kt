@@ -1,12 +1,13 @@
 package org.stkachenko.propertymanagement.core.navigation_contract
 
 
-object HomeDestination {
-    const val HOME_ROUTE = "home_route"
-}
-
-object PropertiesDestination {
+object PropertiesDestinations {
     const val PROPERTIES_ROUTE = "properties_route"
+
+    const val PROPERTY_ID_ARG = "propertyId"
+    const val PROPERTY_DETAILS_ROUTE_BASE = "property_details_route"
+    const val PROPERTY_DETAILS_ROUTE =
+        "$PROPERTY_DETAILS_ROUTE_BASE/{$PROPERTY_ID_ARG}"
 }
 
 object ChatDestination {

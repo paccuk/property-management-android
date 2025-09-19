@@ -7,4 +7,6 @@ import org.stkachenko.propertymanagement.core.model.data.property.Property
 interface PropertiesRepository : Syncable {
     fun getPropertiesByOwnerId(id: String): Flow<List<Property>>
 
+    fun getPropertyById(id: String): Flow<Property?>
+
 }

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_auth_loading_login_content_description">Loading login data…</string>
+</resources>

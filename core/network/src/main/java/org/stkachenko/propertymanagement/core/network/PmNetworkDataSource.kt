@@ -1,6 +1,7 @@
 package org.stkachenko.propertymanagement.core.network
 
 import org.stkachenko.propertymanagement.core.network.model.NetworkChangeList
+import org.stkachenko.propertymanagement.core.network.model.auth.AuthResponse
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkChat
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkChatParticipant
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkMessage

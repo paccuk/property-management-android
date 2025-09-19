@@ -20,7 +20,7 @@ internal class OfflineFirstUsersRepository @Inject constructor(
 
 
     override fun getUser(id: String): Flow<User> =
-        userDao.getUserEntity(id)
+        userDao.getUserEntityById(id)
             .map { it.asExternalModel() }
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean =

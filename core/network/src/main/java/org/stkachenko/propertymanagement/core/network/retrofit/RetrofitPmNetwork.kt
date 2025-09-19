@@ -13,7 +13,6 @@ import org.stkachenko.propertymanagement.core.network.model.chat.NetworkChat
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkChatParticipant
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkMessage
 import org.stkachenko.propertymanagement.core.network.model.image.NetworkImage
-import org.stkachenko.propertymanagement.core.network.model.image.NetworkImageAttachment
 import org.stkachenko.propertymanagement.core.network.model.payment.NetworkInvoice
 import org.stkachenko.propertymanagement.core.network.model.payment.NetworkPayment
 import org.stkachenko.propertymanagement.core.network.model.payment.NetworkPaymentSchedule
@@ -30,6 +29,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 private interface RetrofitPmNetworkApi {
+
     @GET(value = "properties")
     suspend fun getProperties(
         @Query("id") ids: List<String>?,
@@ -171,7 +171,7 @@ private data class NetworkResponse<T>(
 @Singleton
 internal class RetrofitPmNetwork @Inject constructor(
     networkJson: Json,
-    okHttpFactory: dagger.Lazy<Call.Factory>
+    okHttpFactory: dagger.Lazy<Call.Factory>,
 ) : PmNetworkDataSource {
 
     private val networkApi = trace("RetrofitPmNetwork") {

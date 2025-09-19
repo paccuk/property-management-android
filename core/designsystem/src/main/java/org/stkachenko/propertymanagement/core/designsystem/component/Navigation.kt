@@ -157,19 +157,19 @@ object PmNavigationDefaults {
 @ThemePreviews
 @Composable
 fun PmNavigationBarPreview() {
-    val items = listOf("Home", "Properties", "Chats", "Profile")
+    val items = listOf("Properties", "Payments", "Chats", "Profile")
     val icons = listOf(
-        PmIcons.homeUnselected(),
-        PmIcons.propertiesUnselected(),
-        PmIcons.chatsUnselected(),
-        PmIcons.profileUnselected()
+        PmIcons.PropertiesUnselected,
+        PmIcons.BillsUnselected,
+        PmIcons.ChatsUnselected,
+        PmIcons.ProfileUnselected
     )
 
     val selectedIcons = listOf(
-        PmIcons.homeSelected(),
-        PmIcons.propertiesSelected(),
-        PmIcons.chatsSelected(),
-        PmIcons.profileSelected()
+        PmIcons.PropertiesSelected,
+        PmIcons.BillsSelected,
+        PmIcons.ChatsSelected,
+        PmIcons.ProfileSelected
     )
 
     PmTheme {
@@ -178,13 +178,13 @@ fun PmNavigationBarPreview() {
                 PmNavigationBarItem(
                     icon = {
                         Icon(
-                            painter = icons[index],
+                            imageVector = icons[index],
                             contentDescription = item,
                         )
                     },
                     selectedIcon = {
                         Icon(
-                            painter = selectedIcons[index],
+                            imageVector = selectedIcons[index],
                             contentDescription = item,
                         )
                     },

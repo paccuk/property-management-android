@@ -1,4 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="core_ui_small_card_tap_action">View Property Details</string>
+    <string name="core_ui_property_card_expanded_tap_action">View Property Details</string>
+
+    <string name="core_ui_property_details_owner_edit_property_button">Edit property</string>
+    <string name="core_ui_property_details_owner_create_agreement_button">Create agreement</string>
+    <string name="core_ui_property_details_owner_view_offers_button">View offers</string>
+    <string name="core_ui_property_details_owner_view_invites_button">View invites</string>
+    <string name="core_ui_property_details_owner_view_agreements_button">View agreements</string>
+    <string name="core_ui_property_details_owner_manage_payments_button">Manage payments</string>
+    <string name="core_ui_property_details_attributes_card">Attributes</string>
+    <string name="core_ui_property_details_agreements_invitations_card"><![CDATA[Agreements & Invitations]]></string>
+    <string name="core_ui_property_details_tenant_my_agreements_button">My agreements</string>
+    <string name="core_ui_property_details_tenant_payment_history_button">Payment history</string>
+
+    <!-- EditPropertyDialog -->
+    <string name="core_ui_property_details_edit_dialog_title">Edit Property</string>
+    <string name="core_ui_property_details_edit_dialog_price_label">Price</string>
+    <string name="core_ui_property_details_edit_dialog_area_label">Area (m²)</string>
+    <string name="core_ui_property_details_edit_dialog_currency_label">Currency</string>
+    <string name="core_ui_property_details_edit_dialog_address_label">Address</string>
+    <string name="core_ui_property_details_edit_dialog_availability_label">Availability:</string>
+    <string name="core_ui_property_details_edit_dialog_available">Available</string>
+    <string name="core_ui_property_details_edit_dialog_not_available">Not Available</string>
+    <string name="core_ui_property_details_save_button">Save</string>
+    <string name="core_ui_property_details_cancel_button">Cancel</string>
+
+    <!-- CreateAgreementDialog -->
+    <string name="core_ui_property_details_create_agreement_dialog_title">Create Agreement</string>
+    <string name="core_ui_property_details_create_agreement_dialog_offer_id_label">Offer ID</string>
+    <string name="core_ui_property_details_create_agreement_dialog_tenant_id_label">Tenant ID</string>
+    <string name="core_ui_property_details_create_agreement_dialog_start_date_label">Start Date (dd.mm.yyyy)</string>
+    <string name="core_ui_property_details_create_agreement_dialog_end_date_label">End Date (dd.mm.yyyy)</string>
+    <string name="core_ui_property_details_create_agreement_dialog_status_label">Status</string>
+    <string name="core_ui_property_details_create_agreement_dialog_property_id">Property ID: %s</string>
+    <string name="core_ui_property_details_create_button">Create</string>
+
+    <!-- ViewOffersDialog -->
+    <string name="core_ui_property_details_view_offers_dialog_title">Offers</string>
+    <string name="core_ui_property_details_view_offers_dialog_no_offers">No available offers</string>
+    <string name="core_ui_property_details_view_offers_dialog_offer_id">ID: %s</string>
+    <string name="core_ui_property_details_view_offers_dialog_price">Price: %s %s</string>
+    <string name="core_ui_property_details_view_offers_dialog_status">Status: %s</string>
+    <string name="core_ui_property_details_view_offers_dialog_status_active">Active</string>
+    <string name="core_ui_property_details_view_offers_dialog_status_inactive">Inactive</string>
+    <string name="core_ui_property_details_view_offers_dialog_max_tenants">Max tenants: %d</string>
+    <string name="core_ui_property_details_view_offers_dialog_available_from">Available from: %s</string>
+    <string name="core_ui_property_details_view_offers_dialog_available_to">Available to: %s</string>
+    <string name="core_ui_property_details_close_button">Close</string>
+
+    <!-- ViewInvitesDialog -->
+    <string name="core_ui_property_details_view_invites_dialog_title">Invites</string>
+    <string name="core_ui_property_details_view_invites_dialog_no_invites">No available invites</string>
+    <string name="core_ui_property_details_view_invites_dialog_invite_id">ID: %s</string>
+    <string name="core_ui_property_details_view_invites_dialog_contact">Contact: %s</string>
+    <string name="core_ui_property_details_view_invites_dialog_type">Type: %s</string>
+    <string name="core_ui_property_details_view_invites_dialog_status">Status: %s</string>
+    <string name="core_ui_property_details_view_invites_dialog_offer_id">Offer ID: %s</string>
+
+    <!-- ViewAgreementsDialog -->
+    <string name="core_ui_property_details_view_agreements_dialog_title">Agreements</string>
+    <string name="core_ui_property_details_view_agreements_dialog_no_agreements">No available agreements</string>
+    <string name="core_ui_property_details_view_agreements_dialog_agreement_id">ID: %s</string>
+    <string name="core_ui_property_details_view_agreements_dialog_tenant">Tenant: %s</string>
+    <string name="core_ui_property_details_view_agreements_dialog_status">Status: %s</string>
+    <string name="core_ui_property_details_view_agreements_dialog_period">Period: %s - %s</string>
+
+    <!-- ManagePaymentsDialog -->
+    <string name="core_ui_property_details_manage_payments_dialog_title">Payments</string>
+    <string name="core_ui_property_details_manage_payments_dialog_no_payments">No available payments</string>
+    <string name="core_ui_property_details_manage_payments_dialog_payment_id">ID: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_amount">Amount: %s %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_status">Status: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_method">Method: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_from">From: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_to">To: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_date">Payment date: %s</string>
+
+    <!-- HeaderSection -->
+    <string name="core_ui_property_details_header_type">Type: %s</string>
+    <string name="core_ui_property_details_header_area">Area: %s m²</string>
+    <string name="core_ui_property_details_header_available">Available: %s</string>
+    <string name="core_ui_property_details_header_available_yes">Yes</string>
+    <string name="core_ui_property_details_header_available_no">No</string>
+
+
+    <string name="core_ui_login_title">Login</string>
+    <string name="core_ui_login_email_text_field">Email</string>
+    <string name="core_ui_login_password_text_field">Password</string>
+    <string name="core_ui_login_proceed_button">Login</string>
+    <string name="core_ui_login_no_account_text">Don\'t have an account?</string>
+    <string name="core_ui_login_register_text_button">Register</string>
 </resources>

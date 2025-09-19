@@ -28,4 +28,9 @@ message UserPreferences {
 
   int32 imageChangeListVersion = 15;
   int32 imageAttachmentChangeListVersion = 16;
+
+  string user_role = 17;
+  bool is_logged_in = 18;
+
+  string user_id = 19;
 }

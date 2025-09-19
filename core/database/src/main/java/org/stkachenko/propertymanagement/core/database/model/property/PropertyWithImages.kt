@@ -29,6 +29,7 @@ fun List<PropertyWithImages>.asExternalModel(): List<Property> =
                 id = propertyEntity.id,
                 ownerId = propertyEntity.ownerId,
                 price = propertyEntity.price,
+                currency = propertyEntity.currency,
                 type = propertyEntity.type,
                 area = propertyEntity.area,
                 isAvailable = propertyEntity.isAvailable,

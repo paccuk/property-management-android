@@ -8,6 +8,7 @@ fun NetworkProperty.asEntity() = PropertyEntity(
     id = id,
     ownerId = ownerId,
     price = price,
+    currency = currency,
     type = type,
     area = area,
     isAvailable = isAvailable,

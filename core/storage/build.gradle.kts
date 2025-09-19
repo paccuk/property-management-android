@@ -1,0 +1,26 @@
+plugins {
+    alias(libs.plugins.propertymanagement.android.library)
+    alias(libs.plugins.propertymanagement.hilt)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+}
+
+android {
+    namespace = "org.stkachenko.propertymanagement.core.storage"
+
+    buildFeatures {
+        buildConfig = true
+    }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+}
+
+secrets {
+    defaultPropertiesFileName = "secrets.defaults.properties"
+}
+
+dependencies {
+
+}

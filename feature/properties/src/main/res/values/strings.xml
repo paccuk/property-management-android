@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_properties_loading_content_description">Loading properties…</string>
+    <string name="feature_properties_add_property">Add property</string>
+    <string name="feature_properties_add_property_title">New property</string>
+    <string name="feature_properties_add_property_close">Add</string>
+    <string name="feature_properties_title">Properties</string>
+</resources>

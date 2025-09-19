@@ -5,7 +5,9 @@ import androidx.datastore.core.DataStore
 import kotlinx.coroutines.flow.firstOrNull
 import org.stkachenko.propertymanagement.core.model.data.userdata.UserData
 import kotlinx.coroutines.flow.map
+import org.stkachenko.propertymanagement.core.model.data.user.UserRole
 import org.stkachenko.propertymanagement.core.model.data.userdata.DarkThemeConfig
+import org.stkachenko.propertymanagement.core.model.data.usersession.UserSessionData
 import java.io.IOException
 import javax.inject.Inject
 
@@ -30,6 +32,15 @@ class PmPreferencesDataSource @Inject constructor(
             )
         }
 
+    val userSessionData = userPreferences.data
+        .map {
+            UserSessionData(
+                userRole = UserRole.valueOf(it.userRole.ifEmpty { UserRole.TENANT.name }), // TODO("Обробити не знайдену роль")
+                isLoggedIn = it.isLoggedIn,
+                userId = it.userId,
+            )
+        }
+
     suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
         userPreferences.updateData {
             it.toBuilder().setUseDynamicColor(useDynamicColor).build()
@@ -45,6 +56,24 @@ class PmPreferencesDataSource @Inject constructor(
                     DarkThemeConfig.DARK -> DarkThemeConfigProto.DARK_THEME_CONFIG_DARK
                 }
             ).build()
+        }
+    }
+
+    suspend fun setUserRole(userRole: UserRole) {
+        userPreferences.updateData {
+            it.toBuilder().setUserRole(userRole.name).build()
+        }
+    }
+
+    suspend fun setIsLoggedIn(isLoggedIn: Boolean) {
+        userPreferences.updateData {
+            it.toBuilder().setIsLoggedIn(isLoggedIn).build()
+        }
+    }
+
+    suspend fun setUserId(userId: String) {
+        userPreferences.updateData {
+            it.toBuilder().setUserId(userId).build()
         }
     }
 
@@ -94,12 +123,15 @@ class PmPreferencesDataSource @Inject constructor(
                     profileChangeListVersion = updatedChangeListVersions.profileVersion
                     propertyChangeListVersion = updatedChangeListVersions.propertyVersion
                     chatChangeListVersion = updatedChangeListVersions.chatVersion
-                    chatParticipantChangeListVersion = updatedChangeListVersions.chatParticipantVersion
+                    chatParticipantChangeListVersion =
+                        updatedChangeListVersions.chatParticipantVersion
                     messageChangeListVersion = updatedChangeListVersions.messageVersion
                     paymentChangeListVersion = updatedChangeListVersions.paymentVersion
                     invoiceChangeListVersion = updatedChangeListVersions.invoiceVersion
-                    paymentScheduleChangeListVersion = updatedChangeListVersions.paymentScheduleVersion
-                    rentalAgreementChangeListVersion = updatedChangeListVersions.rentalAgreementVersion
+                    paymentScheduleChangeListVersion =
+                        updatedChangeListVersions.paymentScheduleVersion
+                    rentalAgreementChangeListVersion =
+                        updatedChangeListVersions.rentalAgreementVersion
                     rentalInviteChangeListVersion = updatedChangeListVersions.rentalInviteVersion
                     rentalOfferChangeListVersion = updatedChangeListVersions.rentalOfferVersion
                     imageChangeListVersion = updatedChangeListVersions.imageVersion

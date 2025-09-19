@@ -15,6 +15,10 @@ import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.stkachenko.propertymanagement.core.network.BuildConfig
+import org.stkachenko.propertymanagement.core.network.auth.AuthInterceptor
+import org.stkachenko.propertymanagement.core.network.AuthPmNetwork
+import org.stkachenko.propertymanagement.core.network.auth.TokenAuthenticator
+import org.stkachenko.propertymanagement.core.storage.TokenStorage
 import javax.inject.Singleton
 
 @Module
@@ -29,7 +33,26 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
-    fun okHttpCallFactory(): Call.Factory = trace("PmOkHttpClient") {
+    fun publicOkHttpCallFactory(): Call.Factory =
+        trace("PmPublicOkHttpClient") {
+            OkHttpClient.Builder()
+                .addInterceptor(
+                    HttpLoggingInterceptor()
+                        .apply {
+                            if (BuildConfig.DEBUG) {
+                                setLevel(HttpLoggingInterceptor.Level.BODY)
+                            }
+                        },
+                )
+                .build()
+        }
+
+    @Provides
+    @Singleton
+    fun protectedOkHttpCallFactory(
+        tokenStorage: TokenStorage,
+        authNetwork: dagger.Lazy<AuthPmNetwork>,
+    ): Call.Factory = trace("PmProtectedOkHttpClient") {
         OkHttpClient.Builder()
             .addInterceptor(
                 HttpLoggingInterceptor()
@@ -39,6 +62,8 @@ internal object NetworkModule {
                         }
                     },
             )
+            .addInterceptor(AuthInterceptor(tokenStorage))
+            .authenticator(TokenAuthenticator(tokenStorage, authNetwork.get()))
             .build()
     }
 
@@ -59,5 +84,4 @@ internal object NetworkModule {
             }
             .build()
     }
-
 }
