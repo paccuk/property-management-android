@@ -9,13 +9,13 @@ import org.stkachenko.propertymanagement.core.database.dao.payment.InvoiceDao
 import org.stkachenko.propertymanagement.core.database.model.payment.asExternalModel
 import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
 import org.stkachenko.propertymanagement.core.model.data.payment.Invoice
-import org.stkachenko.propertymanagement.core.network.PmNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
 import org.stkachenko.propertymanagement.core.network.model.payment.NetworkInvoice
 import javax.inject.Inject
 
 internal class OfflineFirstInvoicesRepository @Inject constructor(
     private val invoiceDao: InvoiceDao,
-    private val network: PmNetworkDataSource,
+    private val network: ProtectedNetworkDataSource,
 ) : InvoicesRepository {
 
     override fun getInvoice(id: String): Flow<Invoice> =

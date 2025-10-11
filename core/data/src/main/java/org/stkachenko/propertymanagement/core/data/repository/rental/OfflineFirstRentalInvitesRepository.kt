@@ -9,13 +9,13 @@ import org.stkachenko.propertymanagement.core.database.dao.rental.RentalInviteDa
 import org.stkachenko.propertymanagement.core.database.model.rental.asExternalModel
 import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
 import org.stkachenko.propertymanagement.core.model.data.rental.RentalInvite
-import org.stkachenko.propertymanagement.core.network.PmNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalInvite
 import javax.inject.Inject
 
 internal class OfflineFirstRentalInvitesRepository @Inject constructor(
     private val rentalInviteDao: RentalInviteDao,
-    private val network: PmNetworkDataSource,
+    private val network: ProtectedNetworkDataSource,
 ) : RentalInvitesRepository {
 
     override fun getRentalInviteEntity(id: String): Flow<RentalInvite> =

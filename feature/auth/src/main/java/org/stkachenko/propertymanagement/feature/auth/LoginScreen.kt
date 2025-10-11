@@ -19,8 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.stkachenko.propertymanagement.core.designsystem.component.PmOverlayBuildingHouseLoading
+import org.stkachenko.propertymanagement.core.designsystem.theme.PmTheme
+import org.stkachenko.propertymanagement.core.ui.DevicePreviews
 import org.stkachenko.propertymanagement.core.ui.auth.LoginContent
 import org.stkachenko.propertymanagement.core.ui.auth.LoginUiState
+
 
 @Composable
 internal fun LoginRoute(
@@ -30,10 +33,8 @@ internal fun LoginRoute(
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val loginState by viewModel.loginState.collectAsStateWithLifecycle()
-    val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
 
     LoginScreen(
-        isSyncing = isSyncing,
         onLoginClick = { email, password ->
             viewModel.login(email, password)
         },
@@ -46,7 +47,6 @@ internal fun LoginRoute(
 
 @Composable
 fun LoginScreen(
-    isSyncing: Boolean,
     loginState: LoginUiState,
     onLoginClick: (String, String) -> Unit,
     onLoginSuccess: () -> Unit,
@@ -56,7 +56,7 @@ fun LoginScreen(
 
     val isLoginStateLoading = loginState is LoginUiState.Loading
 
-    ReportDrawnWhen { !isSyncing && !isLoginStateLoading }
+    ReportDrawnWhen { !isLoginStateLoading }
 
     Box(
         modifier = modifier
@@ -71,7 +71,7 @@ fun LoginScreen(
     }
 
     AnimatedVisibility(
-        visible = isSyncing || isLoginStateLoading,
+        visible = isLoginStateLoading,
         enter = slideInVertically(
             initialOffsetY = { fullHeight -> -fullHeight },
         ) + fadeIn(),
@@ -96,3 +96,18 @@ fun LoginScreen(
     }
 
 }
+
+@DevicePreviews
+@Composable
+fun LoginScreenPreview() {
+    PmTheme {
+        LoginScreen(
+            loginState = LoginUiState.Idle,
+            onLoginClick = { _, _ -> },
+            onLoginSuccess = {},
+            onNavigateToRegistration = {}
+        )
+    }
+}
+
+

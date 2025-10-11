@@ -10,13 +10,13 @@ import org.stkachenko.propertymanagement.core.database.model.chat.ChatParticipan
 import org.stkachenko.propertymanagement.core.database.model.chat.asExternalModel
 import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
 import org.stkachenko.propertymanagement.core.model.data.chat.ChatParticipant
-import org.stkachenko.propertymanagement.core.network.PmNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkChatParticipant
 import javax.inject.Inject
 
 internal class OfflineFirstChatParticipantsRepository @Inject constructor(
     private val chatParticipantDao: ChatParticipantDao,
-    private val network: PmNetworkDataSource,
+    private val network: ProtectedNetworkDataSource,
 ) : ChatParticipantsRepository {
 
     override fun getChatParticipantsByChatId(chatId: String): Flow<List<ChatParticipant>> =

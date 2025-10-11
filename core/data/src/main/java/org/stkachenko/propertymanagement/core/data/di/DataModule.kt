@@ -18,9 +18,9 @@ import org.stkachenko.propertymanagement.core.data.repository.payment.OfflineFir
 import org.stkachenko.propertymanagement.core.data.repository.payment.OfflineFirstPaymentsRepository
 import org.stkachenko.propertymanagement.core.data.repository.payment.PaymentSchedulesRepository
 import org.stkachenko.propertymanagement.core.data.repository.payment.PaymentsRepository
-import org.stkachenko.propertymanagement.core.data.repository.profile.ProfilesRepository
+import org.stkachenko.propertymanagement.core.data.repository.profile.ProfileRepository
 import org.stkachenko.propertymanagement.core.data.repository.profile.OfflineFirstProfilesRepository
-import org.stkachenko.propertymanagement.core.data.repository.user.UsersRepository
+import org.stkachenko.propertymanagement.core.data.repository.user.UserRepository
 import org.stkachenko.propertymanagement.core.data.repository.user.OfflineFirstUsersRepository
 import org.stkachenko.propertymanagement.core.data.repository.property.PropertiesRepository
 import org.stkachenko.propertymanagement.core.data.repository.property.OfflineFirstPropertiesRepository
@@ -44,12 +44,12 @@ abstract class DataModule {
     @Binds
     internal abstract fun bindsUserRepository(
         userRepository: OfflineFirstUsersRepository,
-    ): UsersRepository
+    ): UserRepository
 
     @Binds
     internal abstract fun bindsProfileRepository(
         profileRepository: OfflineFirstProfilesRepository
-    ): ProfilesRepository
+    ): ProfileRepository
 
     @Binds
     internal abstract fun bindsUserDataRepository(

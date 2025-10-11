@@ -85,10 +85,26 @@
     <string name="core_ui_property_details_header_available_no">No</string>
 
 
-    <string name="core_ui_login_title">Login</string>
-    <string name="core_ui_login_email_text_field">Email</string>
-    <string name="core_ui_login_password_text_field">Password</string>
-    <string name="core_ui_login_proceed_button">Login</string>
-    <string name="core_ui_login_no_account_text">Don\'t have an account?</string>
-    <string name="core_ui_login_register_text_button">Register</string>
+    <string name="core_ui_auth_login_title">Log in</string>
+    <string name="core_ui_auth_registration_title">Sign up</string>
+    <string name="core_ui_auth_complete_registration_title">Finish sign up</string>
+
+    <string name="core_ui_auth_email_text_field">Email</string>
+    <string name="core_ui_auth_password_text_field">Password</string>
+    <string name="core_ui_auth_confirm_password_text_field">Confirm password</string>
+    <string name="core_ui_auth_first_name_text_field">First name</string>
+    <string name="core_ui_auth_last_name_text_field">Last name</string>
+    <string name="core_ui_auth_phone_text_field">Phone</string>
+    <string name="core_ui_auth_role_text_field">Role</string>
+    <string name="core_ui_auth_avatar_text_field">Avatar</string>
+
+    <string name="core_ui_auth_login_button">Log in</string>
+    <string name="core_ui_auth_register_button">Continue</string>
+    <string name="core_ui_auth_complete_registration_button">Sign up</string>
+
+    <string name="core_ui_auth_dont_have_account_text">Don\'t have an account?</string>
+    <string name="core_ui_auth_already_have_account_text">Already have an account?</string>
+
+    <string name="core_ui_auth_register_text_button">Register</string>
+    <string name="core_ui_auth_login_text_button">Login</string>
 </resources>

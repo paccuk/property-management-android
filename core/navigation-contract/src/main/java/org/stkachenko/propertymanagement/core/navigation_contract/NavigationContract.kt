@@ -1,5 +1,10 @@
 package org.stkachenko.propertymanagement.core.navigation_contract
 
+object AuthDestination {
+    const val LOGIN_ROUTE = "login_route"
+    const val REGISTRATION_ROUTE = "registration_route"
+    const val COMPLETE_REGISTRATION_ROUTE = "complete_registration_route"
+}
 
 object PropertiesDestinations {
     const val PROPERTIES_ROUTE = "properties_route"

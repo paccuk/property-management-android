@@ -10,13 +10,13 @@ import org.stkachenko.propertymanagement.core.database.model.rental.RentalAgreem
 import org.stkachenko.propertymanagement.core.database.model.rental.asExternalModel
 import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
 import org.stkachenko.propertymanagement.core.model.data.rental.RentalAgreement
-import org.stkachenko.propertymanagement.core.network.PmNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalAgreement
 import javax.inject.Inject
 
 internal class OfflineFirstRentalAgreementsRepository @Inject constructor(
     private val rentalAgreementDao: RentalAgreementDao,
-    private val network: PmNetworkDataSource,
+    private val network: ProtectedNetworkDataSource,
 ) : RentalAgreementsRepository {
 
     override fun getRentalAgreementsByOfferId(id: String): Flow<List<RentalAgreement>> =

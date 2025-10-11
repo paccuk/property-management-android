@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.stkachenko.propertymanagement.core.designsystem.component.PmOverlayBuildingHouseLoading
-import org.stkachenko.propertymanagement.core.designsystem.component.PmOverlayLoadingWheel
 import org.stkachenko.propertymanagement.core.designsystem.theme.PmTheme
 import org.stkachenko.propertymanagement.core.model.data.property.Property
 import org.stkachenko.propertymanagement.core.model.data.user.UserRole

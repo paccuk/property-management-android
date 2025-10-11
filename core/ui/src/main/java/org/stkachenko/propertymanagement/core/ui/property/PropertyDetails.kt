@@ -579,7 +579,6 @@ private fun NotFoundState() {
 }
 
 @Preview
-@Preview(device = Devices.TABLET)
 @Composable
 private fun PropertyDetailsOwnerContentPreview(
     @PreviewParameter(UserPropertyPreviewParameterProvider::class)
@@ -600,7 +599,6 @@ private fun PropertyDetailsOwnerContentPreview(
 }
 
 @Preview
-@Preview(device = Devices.TABLET)
 @Composable
 private fun PropertyDetailsTenantContentPreview(
     @PreviewParameter(UserPropertyPreviewParameterProvider::class)

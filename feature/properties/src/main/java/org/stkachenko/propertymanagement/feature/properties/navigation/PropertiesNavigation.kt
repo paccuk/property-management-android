@@ -8,7 +8,7 @@ import org.stkachenko.propertymanagement.core.navigation_contract.PropertiesDest
 import org.stkachenko.propertymanagement.feature.properties.PropertiesRoute
 
 
-fun NavController.navigateToProperties(navOptions: NavOptions) =
+fun NavController.navigateToProperties(navOptions: NavOptions? = null) =
     navigate(PROPERTIES_ROUTE, navOptions)
 
 fun NavGraphBuilder.propertiesScreen(onPropertyClick: (String) -> Unit) {

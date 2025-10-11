@@ -12,4 +12,5 @@ interface UserSessionRepository {
     suspend fun setIsLoggedIn(isLoggedIn: Boolean)
 
     suspend fun setUserId(userId: String)
+    suspend fun updateSessionData(userSessionData: UserSessionData)
 }

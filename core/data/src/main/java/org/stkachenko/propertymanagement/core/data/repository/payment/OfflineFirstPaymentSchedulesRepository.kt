@@ -10,13 +10,13 @@ import org.stkachenko.propertymanagement.core.database.model.payment.PaymentSche
 import org.stkachenko.propertymanagement.core.database.model.payment.asExternalModel
 import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
 import org.stkachenko.propertymanagement.core.model.data.payment.PaymentSchedule
-import org.stkachenko.propertymanagement.core.network.PmNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
 import org.stkachenko.propertymanagement.core.network.model.payment.NetworkPaymentSchedule
 import javax.inject.Inject
 
 internal class OfflineFirstPaymentSchedulesRepository @Inject constructor(
     private val paymentScheduleDao: PaymentScheduleDao,
-    private val network: PmNetworkDataSource,
+    private val network: ProtectedNetworkDataSource,
 ) : PaymentSchedulesRepository {
     override fun getPaymentSchedulesByAgreementId(id: String): Flow<List<PaymentSchedule>> =
         paymentScheduleDao.getPaymentScheduleEntitiesByAgreementId(id)

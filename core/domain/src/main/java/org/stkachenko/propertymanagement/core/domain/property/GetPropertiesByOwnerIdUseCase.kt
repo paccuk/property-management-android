@@ -18,9 +18,6 @@ class GetPropertiesByOwnerIdUseCase @Inject constructor(
             propertiesRepository.getPropertiesByOwnerId(ownerId),
         ) { userData, properties ->
             val favoriteProperties = properties
-//                .map { property ->
-//                    property.copy(isFavorite = property.id in userData.favoriteProperties)
-//                }
             when (sortBy) {
                 PropertySortField.PRICE -> favoriteProperties.sortedBy { it.price }
                 PropertySortField.AREA -> favoriteProperties.sortedBy { it.area }

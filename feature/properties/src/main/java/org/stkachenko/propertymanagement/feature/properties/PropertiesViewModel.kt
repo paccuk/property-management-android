@@ -19,8 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PropertiesViewModel @Inject constructor(
     syncManager: SyncManager,
-//    private val userDataRepository: UserDataRepository,
-    private val userSessionRepository: UserSessionRepository,
+    userSessionRepository: UserSessionRepository,
     getProperties: GetPropertiesByOwnerIdUseCase,
 ) : ViewModel() {
 

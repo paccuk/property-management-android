@@ -10,13 +10,13 @@ import org.stkachenko.propertymanagement.core.database.model.chat.MessageEntity
 import org.stkachenko.propertymanagement.core.database.model.chat.asExternalModel
 import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
 import org.stkachenko.propertymanagement.core.model.data.chat.Message
-import org.stkachenko.propertymanagement.core.network.PmNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkMessage
 import javax.inject.Inject
 
 internal class OfflineFirstMessagesRepository @Inject constructor(
     private val messageDao: MessageDao,
-    private val network: PmNetworkDataSource,
+    private val network: ProtectedNetworkDataSource,
 ) : MessagesRepository {
 
     override fun getFilteredMessagesByChatId(

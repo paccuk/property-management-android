@@ -32,4 +32,12 @@ interface UserDao {
         """,
     )
     suspend fun deleteUsers(ids: List<String>)
+
+    @Query(
+        value = """
+            SELECT * FROM users
+            WHERE isPendingSync = 1
+        """
+    )
+    fun getPendingSyncUsers(): List<UserEntity>
 }

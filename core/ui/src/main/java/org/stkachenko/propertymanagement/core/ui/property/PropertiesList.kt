@@ -59,7 +59,6 @@ private fun PropertiesListLoadingPreview() {
 }
 
 @Preview
-@Preview(device = Devices.TABLET)
 @Composable
 private fun PropertiesListContentPreview(
     @PreviewParameter(UserPropertyPreviewParameterProvider::class)

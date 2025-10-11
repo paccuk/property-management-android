@@ -2,23 +2,17 @@ package org.stkachenko.propertymanagement.core.ui.auth
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,8 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,35 +37,45 @@ fun LoginContent(
     var password by remember { mutableStateOf("") }
 
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
     ) {
-        LoginHeader()
-        Spacer(modifier = Modifier.height(16.dp))
+        Column {
+            ActionTitle(R.string.core_ui_auth_login_title)
+            Spacer(modifier = Modifier.height(32.dp))
 
-        EmailInputField(
-            email = email,
-            onEmailChange = { email = it },
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+            InputTextField(
+                value = email,
+                onValueChange = { email = it },
+                stringResId = R.string.core_ui_auth_email_text_field
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        PasswordInputField(
-            password = password,
-            onPasswordChange = { password = it },
-        )
-        Spacer(modifier = Modifier.height(16.dp))
+            PasswordInputTextField(
+                value = password,
+                onValueChange = { password = it },
+                stringResId = R.string.core_ui_auth_password_text_field,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
 
-        StateDependentContent(loginState, onLoginSuccess, onLoginClick, email, password)
-        Spacer(modifier = Modifier.height(8.dp))
+            StateDependentContent(loginState, onLoginSuccess, onLoginClick, email, password)
+        }
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            NoAccountQuestionText()
-            RegisterTextButton(onNavigateToRegistration)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                AuthQuestionText(R.string.core_ui_auth_dont_have_account_text)
+                AuthQuestionTextButton(
+                    onNavigateToAuthAction = onNavigateToRegistration,
+                    stringResId = R.string.core_ui_auth_register_text_button,
+                )
+            }
         }
     }
 }
@@ -90,12 +92,11 @@ private fun StateDependentContent(
         LoginUiState.Success -> onLoginSuccess
         LoginUiState.Loading -> Unit
         LoginUiState.Idle -> {
-            Button(
+            AuthButton(
                 onClick = { onLoginClick(email, password) },
+                stringResId = R.string.core_ui_auth_login_button,
                 modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = stringResource(R.string.core_ui_login_proceed_button))
-            }
+            )
         }
 
         is LoginUiState.Error -> {
@@ -104,79 +105,14 @@ private fun StateDependentContent(
     }
 }
 
-@Composable
-private fun NoAccountQuestionText() {
-    Text(
-        text = stringResource(R.string.core_ui_login_no_account_text),
-        style = MaterialTheme.typography.bodyLarge,
-        color = MaterialTheme.colorScheme.onSurface,
-    )
-}
-
-@Composable
-private fun RegisterTextButton(onNavigateToRegistration: () -> Unit) {
-    TextButton(
-        onClick = onNavigateToRegistration,
-        contentPadding = PaddingValues(horizontal = 4.dp),
-    ) {
-        Text(
-            text = stringResource(R.string.core_ui_login_register_text_button),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.primary,
-        )
-    }
-}
-
-@Composable
-private fun EmailInputField(
-    email: String,
-    onEmailChange: (String) -> Unit,
-) {
-    OutlinedTextField(
-        value = email,
-        onValueChange = onEmailChange,
-        label = {
-            Text(text = stringResource(R.string.core_ui_login_email_text_field))
-        },
-        shape = RoundedCornerShape(100),
-        modifier = Modifier.fillMaxWidth()
-    )
-}
-
-@Composable
-private fun PasswordInputField(
-    password: String,
-    onPasswordChange: (String) -> Unit,
-) {
-    OutlinedTextField(
-        value = password,
-        onValueChange = onPasswordChange,
-        label = {
-            Text(text = stringResource(R.string.core_ui_login_password_text_field))
-        },
-        shape = RoundedCornerShape(100),
-        modifier = Modifier.fillMaxWidth(),
-        visualTransformation = PasswordVisualTransformation(),
-    )
-}
-
-@Composable
-private fun LoginHeader() {
-    Text(
-        text = stringResource(R.string.core_ui_login_title),
-        style = MaterialTheme.typography.headlineMedium,
-    )
-}
-
 sealed interface LoginUiState {
-    object Idle : LoginUiState
-    object Success : LoginUiState
-    object Loading : LoginUiState
+    data object Idle : LoginUiState
+    data object Loading : LoginUiState
+    data object Success : LoginUiState
     data class Error(val message: String) : LoginUiState
 }
 
 @Preview
-@Preview(device = Devices.TABLET)
 @Composable
 private fun LoginContentIdlePreview() {
     CompositionLocalProvider(
@@ -196,7 +132,6 @@ private fun LoginContentIdlePreview() {
 }
 
 @Preview
-@Preview(device = Devices.TABLET)
 @Composable
 private fun LoginContentLoadingPreview() {
     CompositionLocalProvider(

@@ -10,15 +10,22 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.sync.Mutex
 import kotlinx.serialization.json.Json
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.stkachenko.propertymanagement.core.network.BuildConfig
-import org.stkachenko.propertymanagement.core.network.auth.AuthInterceptor
-import org.stkachenko.propertymanagement.core.network.AuthPmNetwork
-import org.stkachenko.propertymanagement.core.network.auth.TokenAuthenticator
-import org.stkachenko.propertymanagement.core.storage.TokenStorage
+import org.stkachenko.propertymanagement.core.network.AuthNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.Dispatcher
+import org.stkachenko.propertymanagement.core.network.PmDispatchers.IO
+import org.stkachenko.propertymanagement.core.network.authenticator.TokenAuthenticator
+import org.stkachenko.propertymanagement.core.network.interceptor.TokenInterceptor
+import org.stkachenko.propertymanagement.core.network.interceptor.UnlockingInterceptor
+import org.stkachenko.propertymanagement.core.network.interceptor.UuidInterceptor
+import org.stkachenko.propertymanagement.core.storage.KeystoreTokenStorage
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -33,8 +40,9 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
+    @Named("public")
     fun publicOkHttpCallFactory(): Call.Factory =
-        trace("PmPublicOkHttpClient") {
+        trace("AuthOkHttpClient") {
             OkHttpClient.Builder()
                 .addInterceptor(
                     HttpLoggingInterceptor()
@@ -44,15 +52,22 @@ internal object NetworkModule {
                             }
                         },
                 )
+                .addInterceptor(UuidInterceptor())
                 .build()
         }
 
     @Provides
     @Singleton
+    @Named("protected")
     fun protectedOkHttpCallFactory(
-        tokenStorage: TokenStorage,
-        authNetwork: dagger.Lazy<AuthPmNetwork>,
-    ): Call.Factory = trace("PmProtectedOkHttpClient") {
+        tokenStorage: KeystoreTokenStorage,
+        authNetwork: dagger.Lazy<AuthNetworkDataSource>,
+        isLogoutStarted: () -> Boolean,
+        startLogout: () -> Unit,
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
+    ): Call.Factory = trace("ProtectedOkHttpClient") {
+        val mutex = Mutex()
+
         OkHttpClient.Builder()
             .addInterceptor(
                 HttpLoggingInterceptor()
@@ -62,8 +77,19 @@ internal object NetworkModule {
                         }
                     },
             )
-            .addInterceptor(AuthInterceptor(tokenStorage))
-            .authenticator(TokenAuthenticator(tokenStorage, authNetwork.get()))
+            .addInterceptor(UuidInterceptor())
+            .addInterceptor(TokenInterceptor(tokenStorage))
+            .authenticator(
+                TokenAuthenticator(
+                    tokenStorage = tokenStorage,
+                    authNetwork = authNetwork.get(),
+                    isLogoutStarted = isLogoutStarted,
+                    startLogout = startLogout,
+                    refreshMutex = mutex,
+                    ioDispatcher = ioDispatcher,
+                )
+            )
+            .addInterceptor(UnlockingInterceptor(mutex))
             .build()
     }
 

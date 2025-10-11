@@ -9,13 +9,13 @@ import org.stkachenko.propertymanagement.core.database.dao.property.PropertyDao
 import org.stkachenko.propertymanagement.core.database.model.property.asExternalModel
 import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
 import org.stkachenko.propertymanagement.core.model.data.property.Property
-import org.stkachenko.propertymanagement.core.network.PmNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
 import org.stkachenko.propertymanagement.core.network.model.property.NetworkProperty
 import javax.inject.Inject
 
 internal class OfflineFirstPropertiesRepository @Inject constructor(
     private val propertyDao: PropertyDao,
-    private val network: PmNetworkDataSource,
+    private val network: ProtectedNetworkDataSource,
 ) : PropertiesRepository {
 
     override fun getPropertiesByOwnerId(id: String): Flow<List<Property>> =

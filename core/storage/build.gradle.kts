@@ -22,5 +22,6 @@ secrets {
 }
 
 dependencies {
-
+    api(projects.core.common)
+    api(projects.core.datastore)
 }

@@ -16,10 +16,10 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import org.stkachenko.propertymanagement.core.data.Synchronizer
 import org.stkachenko.propertymanagement.core.data.repository.chat.ChatsRepository
-import org.stkachenko.propertymanagement.core.data.repository.user.UsersRepository
+import org.stkachenko.propertymanagement.core.data.repository.user.UserRepository
 import org.stkachenko.propertymanagement.core.data.repository.property.PropertiesRepository
 import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
-import org.stkachenko.propertymanagement.core.datastore.PmPreferencesDataSource
+import org.stkachenko.propertymanagement.core.datastore.user_preferences.PmPreferencesDataSource
 import org.stkachenko.propertymanagement.core.network.Dispatcher
 import org.stkachenko.propertymanagement.core.network.PmDispatchers.IO
 import org.stkachenko.propertymanagement.sync.initializers.SyncConstraints
@@ -33,7 +33,7 @@ internal class SyncWorker @AssistedInject constructor(
     private val pmPreference: PmPreferencesDataSource,
     private val propertiesRepository: PropertiesRepository,
     private val chatsRepository: ChatsRepository,
-    private val profileRepository: UsersRepository,
+    private val profileRepository: UserRepository,
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
     private val syncSubscriber: SyncSubscriber,
 ) : CoroutineWorker(appContext, workerParams), Synchronizer {

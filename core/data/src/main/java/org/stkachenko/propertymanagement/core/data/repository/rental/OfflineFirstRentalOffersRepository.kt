@@ -10,12 +10,12 @@ import org.stkachenko.propertymanagement.core.database.model.rental.RentalOfferE
 import org.stkachenko.propertymanagement.core.database.model.rental.asExternalModel
 import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
 import org.stkachenko.propertymanagement.core.model.data.rental.RentalOffer
-import org.stkachenko.propertymanagement.core.network.PmNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalOffer
 
 internal class OfflineFirstRentalOffersRepository(
     private val rentalOfferDao: RentalOfferDao,
-    private val network: PmNetworkDataSource,
+    private val network: ProtectedNetworkDataSource,
 ) : RentalOffersRepository {
 
     override fun getRentalOfferEntitiesByOwnerId(id: String): Flow<List<RentalOffer>> =

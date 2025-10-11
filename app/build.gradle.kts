@@ -59,6 +59,7 @@ dependencies {
     implementation(projects.feature.chats)
     implementation(projects.feature.statistics)
     implementation(projects.feature.notifications)
+    implementation(projects.feature.auth)
 
     // Core Project Modules
     implementation(projects.core.ui)
