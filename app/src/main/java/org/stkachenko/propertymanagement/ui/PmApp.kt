@@ -44,6 +44,7 @@ import org.stkachenko.propertymanagement.core.designsystem.component.PmBackgroun
 import org.stkachenko.propertymanagement.core.designsystem.component.PmNavigationSuiteScaffold
 import org.stkachenko.propertymanagement.core.designsystem.component.PmTopAppBar
 import org.stkachenko.propertymanagement.core.model.data.user.UserRole
+import org.stkachenko.propertymanagement.core.model.data.usersession.UserSessionData
 import org.stkachenko.propertymanagement.navigation.PmNavHost
 import org.stkachenko.propertymanagement.navigation.TopLevelDestination
 import org.stkachenko.propertymanagement.feature.notifications.R as notificationsR
@@ -51,7 +52,7 @@ import org.stkachenko.propertymanagement.feature.notifications.R as notification
 @Composable
 fun PmApp(
     appState: PmAppState,
-    userRole: UserRole,
+    userSessionData: UserSessionData,
     modifier: Modifier = Modifier,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
 ) {
@@ -73,7 +74,7 @@ fun PmApp(
 
         PmApp(
             appState = appState,
-            userRole = userRole,
+            userSessionData = userSessionData,
             snackbarHostState = snackbarHostState,
             windowAdaptiveInfo = windowAdaptiveInfo
         )
@@ -84,7 +85,7 @@ fun PmApp(
 @Composable
 internal fun PmApp(
     appState: PmAppState,
-    userRole: UserRole,
+    userSessionData: UserSessionData,
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),

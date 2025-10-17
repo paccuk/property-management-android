@@ -14,6 +14,22 @@ fun NetworkProperty.asEntity() = PropertyEntity(
     isAvailable = isAvailable,
     address = address,
     attributes = attributes,
+    images = images,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)
+
+fun PropertyEntity.asNetworkModel() = NetworkProperty(
+    id = id,
+    ownerId = ownerId,
+    price = price,
+    currency = currency,
+    type = type,
+    area = area,
+    isAvailable = isAvailable,
+    address = address,
+    attributes = attributes,
+    images = images,
     createdAt = createdAt,
     updatedAt = updatedAt,
 )

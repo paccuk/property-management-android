@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.stkachenko.propertymanagement.core.data.repository.auth.AuthRepository
 import org.stkachenko.propertymanagement.core.data.repository.usersession.UserSessionRepository
+import org.stkachenko.propertymanagement.core.domain.user.LoginUseCase
 import org.stkachenko.propertymanagement.core.ui.auth.LoginUiState
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ private const val ERROR_MESSAGE = "Unknown error."
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
+    private val loginUseCase: LoginUseCase,
 ) : ViewModel() {
     private val _loginState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val loginState: StateFlow<LoginUiState> = _loginState.asStateFlow()
@@ -27,7 +28,7 @@ class LoginViewModel @Inject constructor(
             _loginState.value = LoginUiState.Loading
 
             try {
-                authRepository.login(email, password)
+                loginUseCase(email, password)
                 _loginState.value = LoginUiState.Success
 
             } catch (e: Exception) {

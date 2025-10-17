@@ -13,3 +13,14 @@ fun NetworkPaymentSchedule.asEntity() = PaymentScheduleEntity(
     createdAt = createdAt,
     updatedAt = updatedAt,
 )
+
+fun PaymentScheduleEntity.asNetworkModel() = NetworkPaymentSchedule(
+    id = id,
+    agreementId = agreementId,
+    dueDate = dueDate,
+    amount = amount,
+    currency = currency,
+    description = description,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

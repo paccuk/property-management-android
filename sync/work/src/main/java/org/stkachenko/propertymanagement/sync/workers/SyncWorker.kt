@@ -18,7 +18,6 @@ import org.stkachenko.propertymanagement.core.data.Synchronizer
 import org.stkachenko.propertymanagement.core.data.repository.chat.ChatsRepository
 import org.stkachenko.propertymanagement.core.data.repository.user.UserRepository
 import org.stkachenko.propertymanagement.core.data.repository.property.PropertiesRepository
-import org.stkachenko.propertymanagement.core.datastore.ChangeListVersions
 import org.stkachenko.propertymanagement.core.datastore.user_preferences.PmPreferencesDataSource
 import org.stkachenko.propertymanagement.core.network.Dispatcher
 import org.stkachenko.propertymanagement.core.network.PmDispatchers.IO

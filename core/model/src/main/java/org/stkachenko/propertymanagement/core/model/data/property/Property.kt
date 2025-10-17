@@ -1,7 +1,5 @@
 package org.stkachenko.propertymanagement.core.model.data.property
 
-import org.stkachenko.propertymanagement.core.model.data.image.Image
-
 data class Property(
     val id: String,
     val ownerId: String,
@@ -12,7 +10,7 @@ data class Property(
     val isAvailable: Boolean,
     val address: Map<String, String>,
     val attributes: Map<String, String>,
-    val images: List<Image>,
+    val images: List<String>,
     val createdAt: Long,
     val updatedAt: Long,
 )

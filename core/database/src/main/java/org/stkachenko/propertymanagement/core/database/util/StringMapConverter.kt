@@ -12,5 +12,5 @@ internal class StringMapConverter {
 
     @TypeConverter
     fun jsonStringToStringMap(value: String?): Map<String, String>? =
-        value?.let { json.decodeFromString(it) }
+        value?.let { json.decodeFromString<Map<String, String>>(it) }
 }

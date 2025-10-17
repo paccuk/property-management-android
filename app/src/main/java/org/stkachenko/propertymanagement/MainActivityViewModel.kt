@@ -13,6 +13,7 @@ import org.stkachenko.propertymanagement.MainActivityUiState.Success
 import org.stkachenko.propertymanagement.core.data.repository.usersession.UserSessionRepository
 import org.stkachenko.propertymanagement.core.model.data.userdata.UserData
 import org.stkachenko.propertymanagement.core.model.data.user.UserRole
+import org.stkachenko.propertymanagement.core.model.data.usersession.UserSessionData
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,10 +22,10 @@ class MainActivityViewModel @Inject constructor(
     userDataRepository: UserDataRepository,
 ) : ViewModel() {
     val uiState: StateFlow<MainActivityUiState> = combine(
-        userSessionRepository.userRole,
+        userSessionRepository.userSessionData,
         userDataRepository.userData,
-    ) { userRole, userData ->
-        Success(userRole = userRole, userData = userData)
+    ) { userSessionData, userData ->
+        Success(userSessionData = userSessionData, userData = userData)
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -35,7 +36,7 @@ class MainActivityViewModel @Inject constructor(
 sealed interface MainActivityUiState {
     data object Loading : MainActivityUiState
     data class Success(
-        val userRole: UserRole,
+        val userSessionData: UserSessionData,
         val userData: UserData,
     ) : MainActivityUiState
 }

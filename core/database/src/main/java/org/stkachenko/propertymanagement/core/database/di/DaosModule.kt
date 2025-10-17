@@ -8,11 +8,9 @@ import org.stkachenko.propertymanagement.core.database.PmDatabase
 import org.stkachenko.propertymanagement.core.database.dao.chat.ChatDao
 import org.stkachenko.propertymanagement.core.database.dao.chat.ChatParticipantDao
 import org.stkachenko.propertymanagement.core.database.dao.chat.MessageDao
-import org.stkachenko.propertymanagement.core.database.dao.image.ImageDao
 import org.stkachenko.propertymanagement.core.database.dao.payment.InvoiceDao
 import org.stkachenko.propertymanagement.core.database.dao.payment.PaymentDao
 import org.stkachenko.propertymanagement.core.database.dao.payment.PaymentScheduleDao
-import org.stkachenko.propertymanagement.core.database.dao.profile.ProfileDao
 import org.stkachenko.propertymanagement.core.database.dao.property.PropertyDao
 import org.stkachenko.propertymanagement.core.database.dao.rental.RentalAgreementDao
 import org.stkachenko.propertymanagement.core.database.dao.rental.RentalInviteDao
@@ -28,11 +26,6 @@ internal object DaosModule {
     fun providesUserDao(
         database: PmDatabase,
     ): UserDao = database.userDao()
-
-    @Provides
-    fun providesProfileDao(
-        database: PmDatabase,
-    ): ProfileDao = database.profileDao()
 
     // Property
     @Provides
@@ -87,10 +80,4 @@ internal object DaosModule {
     fun providesRentalAgreementDao(
         database: PmDatabase,
     ): RentalAgreementDao = database.rentalAgreementDao()
-
-    // Other
-    @Provides
-    fun providesImageDao(
-        database: PmDatabase,
-    ): ImageDao = database.imageDao()
 }

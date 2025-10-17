@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import org.stkachenko.propertymanagement.core.data.repository.usersession.UserSessionRepository
-import org.stkachenko.propertymanagement.core.data.util.SyncManager
 import org.stkachenko.propertymanagement.core.domain.property.GetPropertyByIdUseCase
 import org.stkachenko.propertymanagement.core.ui.property.PropertyUiState
 import org.stkachenko.propertymanagement.core.ui.property.UserRoleState
@@ -19,7 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class PropertyDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    syncManager: SyncManager,
     private val userSessionRepository: UserSessionRepository,
     private val getPropertyById: GetPropertyByIdUseCase,
     // TODO: Inject when implemented
@@ -30,12 +28,6 @@ class PropertyDetailsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val propertyId: String = savedStateHandle.get<String>("propertyId").orEmpty()
-
-    val isSyncing: StateFlow<Boolean> = syncManager.isSyncing.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = false,
-    )
 
     val propertyState: StateFlow<PropertyUiState> =
         if (propertyId.isBlank()) {

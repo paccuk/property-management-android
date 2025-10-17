@@ -5,6 +5,8 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.stkachenko.propertymanagement.core.database.model.user.UserEntity
+import org.stkachenko.propertymanagement.core.model.data.property.Property
+import org.stkachenko.propertymanagement.core.model.data.user.User
 
 @Entity(
     tableName = "properties",
@@ -31,6 +33,22 @@ data class PropertyEntity(
     val isAvailable: Boolean,
     val address: Map<String, String>,
     val attributes: Map<String, String>,
+    val images: List<String>,
     val createdAt: Long,
     val updatedAt: Long,
+)
+
+fun PropertyEntity.asExternalModel() = Property(
+    id = id,
+    ownerId = ownerId,
+    price = price,
+    currency = currency,
+    type = type,
+    area = area,
+    isAvailable = isAvailable,
+    address = address,
+    attributes = attributes,
+    images = images,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
 )

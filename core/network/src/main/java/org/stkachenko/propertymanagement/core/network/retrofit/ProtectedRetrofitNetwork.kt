@@ -8,7 +8,6 @@ import okhttp3.Call
 import okhttp3.MediaType.Companion.toMediaType
 import org.stkachenko.propertymanagement.core.network.BuildConfig
 import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
-import org.stkachenko.propertymanagement.core.network.model.NetworkChangeList
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkChat
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkChatParticipant
 import org.stkachenko.propertymanagement.core.network.model.chat.NetworkMessage
@@ -19,7 +18,9 @@ import org.stkachenko.propertymanagement.core.network.model.property.NetworkProp
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalAgreement
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalInvite
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalOffer
+import org.stkachenko.propertymanagement.core.network.model.user.CompleteUserProfileRequest
 import org.stkachenko.propertymanagement.core.network.model.user.NetworkUser
+import org.stkachenko.propertymanagement.core.network.model.user.UpdateUserProfileRequest
 import retrofit2.Retrofit
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -207,65 +208,59 @@ private interface RetrofitPmNetworkApi {
         @Query("id") ids: List<String>?,
     ): NetworkResponse<List<NetworkMessage>>
 
-    @GET(value = "changelists/properties")
-    suspend fun getPropertyChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET(value = "properties")
+    suspend fun getPropertiesUpdatedAfter(
+        @Query("timestamp") timestamp: Long,
+    ): NetworkResponse<List<NetworkProperty>>
 
-    @GET(value = "changelists/chats")
-    suspend fun getChatChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET(value = "users")
+    suspend fun getUsersUpdatedAfter(
+        @Query("timestamp") timestamp: Long,
+    ): NetworkResponse<List<NetworkUser>>
 
-    @GET(value = "changelists/chatParticipants")
-    suspend fun getChatParticipantChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET(value = "payments")
+    suspend fun getPaymentsUpdatedAfter(
+        @Query("timestamp") timestamp: Long,
+    ): NetworkResponse<List<NetworkPayment>>
 
-    @GET(value = "changelists/messages")
-    suspend fun getMessageChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET(value = "invoices")
+    suspend fun getInvoicesUpdatedAfter(
+        @Query("timestamp") timestamp: Long,
+    ): NetworkResponse<List<NetworkInvoice>>
 
-    @GET(value = "changelists/users")
-    suspend fun getUserChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET(value = "paymentSchedules")
+    suspend fun getPaymentSchedulesUpdatedAfter(
+        @Query("timestamp") timestamp: Long,
+    ): NetworkResponse<List<NetworkPaymentSchedule>>
 
-    @GET(value = "changelists/payments")
-    suspend fun getPaymentChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET(value = "rentalAgreements")
+    suspend fun getRentalAgreementsUpdatedAfter(
+        @Query("timestamp") timestamp: Long,
+    ): NetworkResponse<List<NetworkRentalAgreement>>
 
-    @GET(value = "changelists/invoices")
-    suspend fun getInvoiceChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET(value = "rentalInvites")
+    suspend fun getRentalInvitesUpdatedAfter(
+        @Query("timestamp") timestamp: Long,
+    ): NetworkResponse<List<NetworkRentalInvite>>
 
-    @GET(value = "changelists/paymentSchedules")
-    suspend fun getPaymentScheduleChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET(value = "rentalOffers")
+    suspend fun getRentalOffersUpdatedAfter(
+        @Query("timestamp") timestamp: Long,
+    ): NetworkResponse<List<NetworkRentalOffer>>
 
-    @GET(value = "changelists/rentalAgreements")
-    suspend fun getRentalAgreementChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @POST
+    suspend fun completeUserProfile(
+        @Body request: CompleteUserProfileRequest,
+    ): NetworkResponse<NetworkUser>
 
-    @GET(value = "changelists/rentalInvites")
-    suspend fun getRentalInviteChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @POST
+    suspend fun updateUser(
+        @Body request: UpdateUserProfileRequest,
+    ): NetworkResponse<NetworkUser>
 
-    @GET(value = "changelists/rentalOffers")
-    suspend fun getRentalOfferChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
+    @GET("users/me")
+    suspend fun getUserByToken(): NetworkResponse<NetworkUser>
 
-    @GET(value = "changelists/images")
-    suspend fun getImageChangeList(
-        @Query("after") after: Int?,
-    ): List<NetworkChangeList>
 }
 
 private const val PM_BASE_URL = BuildConfig.BACKEND_URL
@@ -292,11 +287,25 @@ internal class ProtectedRetrofitNetwork @Inject constructor(
             .create(RetrofitPmNetworkApi::class.java)
     }
 
+    override suspend fun completeUserProfile(
+        completeUserProfileRequest: CompleteUserProfileRequest,
+    ): NetworkUser =
+        networkApi.completeUserProfile(completeUserProfileRequest).data
+
+    override suspend fun getUserByToken(): NetworkUser =
+        networkApi.getUserByToken().data
+
     override suspend fun getUsers(ids: List<String>?): List<NetworkUser> =
         networkApi.getUsers(ids).data
 
+    override suspend fun getUsersUpdatedAfter(timestamp: Long): List<NetworkUser> =
+        networkApi.getUsersUpdatedAfter(timestamp).data
+
     override suspend fun createUsers(users: List<NetworkUser>): List<NetworkUser> =
         networkApi.createUsers(users).data
+
+    override suspend fun updateUser(updateUserProfileRequest: UpdateUserProfileRequest): NetworkUser =
+        networkApi.updateUser(updateUserProfileRequest).data
 
     override suspend fun updateUsers(users: List<NetworkUser>): List<NetworkUser> =
         networkApi.updateUsers(users).data
@@ -343,6 +352,15 @@ internal class ProtectedRetrofitNetwork @Inject constructor(
     override suspend fun getPaymentSchedules(ids: List<String>?): List<NetworkPaymentSchedule> =
         networkApi.getPaymentSchedules(ids).data
 
+    override suspend fun getPaymentsUpdatedAfter(timestamp: Long): List<NetworkPayment> =
+        networkApi.getPaymentsUpdatedAfter(timestamp).data
+
+    override suspend fun getInvoicesUpdatedAfter(timestamp: Long): List<NetworkInvoice> =
+        networkApi.getInvoicesUpdatedAfter(timestamp).data
+
+    override suspend fun getPaymentSchedulesUpdatedAfter(timestamp: Long): List<NetworkPaymentSchedule> =
+        networkApi.getPaymentSchedulesUpdatedAfter(timestamp).data
+
     override suspend fun createPaymentSchedules(paymentSchedules: List<NetworkPaymentSchedule>): List<NetworkPaymentSchedule> =
         networkApi.createPaymentSchedules(paymentSchedules).data
 
@@ -379,6 +397,15 @@ internal class ProtectedRetrofitNetwork @Inject constructor(
     override suspend fun getRentalOffers(ids: List<String>?): List<NetworkRentalOffer> =
         networkApi.getRentalOffers(ids).data
 
+    override suspend fun getRentalAgreementsUpdatedAfter(timestamp: Long): List<NetworkRentalAgreement> =
+        networkApi.getRentalAgreementsUpdatedAfter(timestamp).data
+
+    override suspend fun getRentalInvitesUpdatedAfter(timestamp: Long): List<NetworkRentalInvite> =
+        networkApi.getRentalInvitesUpdatedAfter(timestamp).data
+
+    override suspend fun getRentalOffersUpdatedAfter(timestamp: Long): List<NetworkRentalOffer> =
+        networkApi.getRentalOffersUpdatedAfter(timestamp).data
+
     override suspend fun createRentalOffers(rentalOffers: List<NetworkRentalOffer>): List<NetworkRentalOffer> =
         networkApi.createRentalOffers(rentalOffers).data
 
@@ -397,36 +424,6 @@ internal class ProtectedRetrofitNetwork @Inject constructor(
     override suspend fun getMessages(ids: List<String>?): List<NetworkMessage> =
         networkApi.getMessages(ids).data
 
-    override suspend fun getRentalAgreementChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getRentalAgreementChangeList(after = after)
-
-    override suspend fun getRentalInviteChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getRentalInviteChangeList(after = after)
-
-    override suspend fun getRentalOfferChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getRentalOfferChangeList(after = after)
-
-    override suspend fun getPropertyChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getPropertyChangeList(after = after)
-
-    override suspend fun getUserChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getUserChangeList(after = after)
-
-    override suspend fun getPaymentChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getPaymentChangeList(after = after)
-
-    override suspend fun getInvoiceChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getInvoiceChangeList(after = after)
-
-    override suspend fun getPaymentScheduleChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getPaymentScheduleChangeList(after = after)
-
-    override suspend fun getChatChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getChatChangeList(after = after)
-
-    override suspend fun getChatParticipantChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getChatParticipantChangeList(after = after)
-
-    override suspend fun getMessageChangeList(after: Int?): List<NetworkChangeList> =
-        networkApi.getMessageChangeList(after = after)
+    override suspend fun getPropertiesUpdatedAfter(timestamp: Long): List<NetworkProperty> =
+        networkApi.getPropertiesUpdatedAfter(timestamp).data
 }

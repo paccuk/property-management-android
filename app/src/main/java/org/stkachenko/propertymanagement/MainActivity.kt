@@ -95,12 +95,12 @@ class MainActivity : ComponentActivity() {
 
             val currentTimeZone by appState.currentTimeZone.collectAsStateWithLifecycle()
 
-            val userRole = when (uiState) {
-                is Success -> (uiState as Success).userRole
+            val userSessionData = when (uiState) {
+                is Success -> (uiState as Success).userSessionData
                 Loading -> null
             }
 
-            if (userRole != null) {
+            if (userSessionData != null) {
                 CompositionLocalProvider(
                     LocalTimeZone provides currentTimeZone,
                 ) {
@@ -108,7 +108,7 @@ class MainActivity : ComponentActivity() {
                         darkTheme = shouldUseDarkTheme(uiState),
                         disableDynamicTheming = shouldDisableDynamicTheming(uiState)
                     ) {
-                        PmApp(appState, userRole)
+                        PmApp(appState, userSessionData)
                     }
                 }
             }

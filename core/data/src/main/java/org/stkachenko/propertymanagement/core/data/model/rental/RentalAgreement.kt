@@ -14,3 +14,14 @@ fun NetworkRentalAgreement.asEntity() = RentalAgreementEntity(
     createdAt = createdAt,
     updatedAt = updatedAt,
 )
+
+fun RentalAgreementEntity.asNetworkModel() = NetworkRentalAgreement(
+    id = id,
+    offerId = offerId,
+    tenantId = tenantId,
+    startDate = startDate.time,
+    endDate = endDate.time,
+    status = status,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

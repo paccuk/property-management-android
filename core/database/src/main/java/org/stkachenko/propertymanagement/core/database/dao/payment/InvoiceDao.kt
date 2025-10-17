@@ -40,4 +40,7 @@ interface InvoiceDao {
         """,
     )
     suspend fun deleteInvoices(ids: List<String>)
+
+    @Query("SELECT * FROM invoices WHERE updatedAt > :timestamp")
+    suspend fun getInvoicesUpdatedAfter(timestamp: Long): List<InvoiceEntity>
 }

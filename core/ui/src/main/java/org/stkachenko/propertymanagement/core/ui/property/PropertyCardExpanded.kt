@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import org.stkachenko.propertymanagement.core.designsystem.theme.PmTheme
-import org.stkachenko.propertymanagement.core.model.data.image.Image
 import org.stkachenko.propertymanagement.core.model.data.property.Property
 import org.stkachenko.propertymanagement.core.ui.R
 import org.stkachenko.propertymanagement.core.designsystem.R.drawable as drawable
@@ -59,9 +58,7 @@ fun PropertyCardExpanded(
     ) {
         Column {
             Row {
-                PropertyCardHeaderImage(
-                    property.images.firstOrNull { it.position == 0 }
-                )
+                PropertyCardHeaderImage(property.images.firstOrNull())
             }
             Box(
                 modifier = Modifier.padding(16.dp)
@@ -154,13 +151,13 @@ fun PropertyDetails(
 
 @Composable
 fun PropertyCardHeaderImage(
-    headerImageUrl: Image?,
+    headerImageUrl: String?,
 ) {
     if (headerImageUrl != null) {
         var isLoading by remember { mutableStateOf(true) }
         var isError by remember { mutableStateOf(false) }
         val imageLoader = rememberAsyncImagePainter(
-            model = headerImageUrl.url,
+            model = headerImageUrl,
             onState = { state ->
                 isLoading = state is AsyncImagePainter.State.Loading
                 isError = state is AsyncImagePainter.State.Error

@@ -28,7 +28,13 @@ class CompleteRegistrationViewModel @Inject constructor(
         avatarImageUrl: String?,
     ) {
         viewModelScope.launch {
-            completeProfile(firstName, lastName, phoneNumber, role, avatarImageUrl)
+            try {
+                completeProfile(firstName, lastName, phoneNumber, role, avatarImageUrl)
+                _completeRegistrationState.value = CompleteRegistrationUiState.Success
+            } catch (e: Exception) {
+                _completeRegistrationState.value =
+                    CompleteRegistrationUiState.Error(e.message ?: "Unknown error.")
+            }
         }
     }
 }

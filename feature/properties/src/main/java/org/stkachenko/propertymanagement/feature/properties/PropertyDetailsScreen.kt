@@ -37,11 +37,9 @@ fun PropertyDetailsRoute(
 ) {
     // propertyId picked up via SavedStateHandle in ViewModel
     val propertyState by viewModel.propertyState.collectAsStateWithLifecycle()
-    val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
     val userRole by viewModel.userRole.collectAsStateWithLifecycle()
 
     PropertyDetailsScreen(
-        isSyncing = isSyncing,
         propertyState = propertyState,
         userRoleState = userRole,
         modifier = modifier,
@@ -51,13 +49,12 @@ fun PropertyDetailsRoute(
 @Composable
 fun PropertyDetailsScreen(
     propertyState: PropertyUiState,
-    isSyncing: Boolean,
     userRoleState: UserRoleState,
     modifier: Modifier = Modifier,
 ) {
     val isPropertyLoading = propertyState is PropertyUiState.Loading
 
-    ReportDrawnWhen { !isSyncing && !isPropertyLoading }
+    ReportDrawnWhen { !isPropertyLoading }
 
     Box(
         modifier = modifier
@@ -69,7 +66,7 @@ fun PropertyDetailsScreen(
         )
 
         AnimatedVisibility(
-            visible = isSyncing || isPropertyLoading,
+            visible = isPropertyLoading,
             enter = slideInVertically(
                 initialOffsetY = { fullHeight -> -fullHeight },
             ) + fadeIn(),
@@ -100,11 +97,10 @@ fun PropertyDetailsScreen(
 @Composable
 private fun PropertyDetailsOwnerPreview(
     @PreviewParameter(UserPropertyPreviewParameterProvider::class)
-    propertiesList: List<Property>
+    propertiesList: List<Property>,
 ) {
     PmTheme {
         PropertyDetailsScreen(
-            isSyncing = false,
             propertyState = PropertyUiState.Success(propertiesList.first()),
             userRoleState = UserRoleState.Success(UserRole.OWNER),
         )
@@ -115,11 +111,10 @@ private fun PropertyDetailsOwnerPreview(
 @Composable
 private fun PropertyDetailsTenantPreview(
     @PreviewParameter(UserPropertyPreviewParameterProvider::class)
-    propertiesList: List<Property>
+    propertiesList: List<Property>,
 ) {
     PmTheme {
         PropertyDetailsScreen(
-            isSyncing = false,
             propertyState = PropertyUiState.Success(propertiesList.first()),
             userRoleState = UserRoleState.Success(UserRole.TENANT),
         )

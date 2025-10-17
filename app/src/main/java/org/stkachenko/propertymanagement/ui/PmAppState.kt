@@ -18,8 +18,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.TimeZone
 import org.stkachenko.propertymanagement.core.data.util.NetworkMonitor
 import org.stkachenko.propertymanagement.core.data.util.TimeZoneMonitor
-import org.stkachenko.propertymanagement.feature.home.navigation.HOME_ROUTE
-import org.stkachenko.propertymanagement.feature.home.navigation.navigateToHome
+import org.stkachenko.propertymanagement.core.navigation_contract.ProfileDestination.PROFILE_ROUTE
+import org.stkachenko.propertymanagement.core.navigation_contract.PropertiesDestinations.PROPERTIES_ROUTE
+import org.stkachenko.propertymanagement.feature.profile.navigation.navigateToProfile
 import org.stkachenko.propertymanagement.navigation.TopLevelDestination
 import org.stkachenko.propertymanagement.navigation.TopLevelDestination.*
 
@@ -58,10 +59,7 @@ class PmAppState(
 
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
-            HOME_ROUTE -> HOME
             PROPERTIES_ROUTE -> PROPERTIES
-            CHATS_ROUTE -> CHATS
-//            STATISTICS_ROUTE -> STATISTICS
             PROFILE_ROUTE -> PROFILE
             else -> null
         }
@@ -100,14 +98,13 @@ class PmAppState(
             }
 
             when (topLevelDestination) {
-                HOME -> navController.navigateToHome(topLevelNavOptions)
-                PROPERTIES -> TODO()
-                CHATS -> TODO()
+                PROPERTIES -> navController.navigateToProfile(topLevelNavOptions)
+                CHATS -> navController.navigateToProfile(topLevelNavOptions)
                 STATISTICS -> TODO()
                 PROFILE -> TODO()
             }
         }
     }
 
-    fun navigateToNotifications() = navController.navigateToNotifications()
+    fun navigateToNotifications(): Unit = TODO()
 }

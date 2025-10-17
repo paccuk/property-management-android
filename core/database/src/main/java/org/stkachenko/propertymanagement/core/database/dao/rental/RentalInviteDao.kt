@@ -32,4 +32,7 @@ interface RentalInviteDao {
         """,
     )
     suspend fun deleteRentalInvites(ids: List<String>)
+
+    @Query("SELECT * FROM rental_invites WHERE updatedAt > :timestamp")
+    suspend fun getRentalInvitesUpdatedAfter(timestamp: Long): List<RentalInviteEntity>
 }

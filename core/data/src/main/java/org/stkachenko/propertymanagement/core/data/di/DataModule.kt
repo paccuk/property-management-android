@@ -10,32 +10,28 @@ import org.stkachenko.propertymanagement.core.data.repository.chat.MessagesRepos
 import org.stkachenko.propertymanagement.core.data.repository.chat.OfflineFirstChatParticipantsRepository
 import org.stkachenko.propertymanagement.core.data.repository.chat.OfflineFirstChatsRepository
 import org.stkachenko.propertymanagement.core.data.repository.chat.OfflineFirstMessagesRepository
-import org.stkachenko.propertymanagement.core.data.repository.image.ImagesRepository
-import org.stkachenko.propertymanagement.core.data.repository.image.OfflineFirstImagesRepository
 import org.stkachenko.propertymanagement.core.data.repository.payment.InvoicesRepository
 import org.stkachenko.propertymanagement.core.data.repository.payment.OfflineFirstInvoicesRepository
 import org.stkachenko.propertymanagement.core.data.repository.payment.OfflineFirstPaymentSchedulesRepository
 import org.stkachenko.propertymanagement.core.data.repository.payment.OfflineFirstPaymentsRepository
 import org.stkachenko.propertymanagement.core.data.repository.payment.PaymentSchedulesRepository
 import org.stkachenko.propertymanagement.core.data.repository.payment.PaymentsRepository
-import org.stkachenko.propertymanagement.core.data.repository.profile.ProfileRepository
-import org.stkachenko.propertymanagement.core.data.repository.profile.OfflineFirstProfilesRepository
-import org.stkachenko.propertymanagement.core.data.repository.user.UserRepository
-import org.stkachenko.propertymanagement.core.data.repository.user.OfflineFirstUsersRepository
-import org.stkachenko.propertymanagement.core.data.repository.property.PropertiesRepository
 import org.stkachenko.propertymanagement.core.data.repository.property.OfflineFirstPropertiesRepository
+import org.stkachenko.propertymanagement.core.data.repository.property.PropertiesRepository
 import org.stkachenko.propertymanagement.core.data.repository.rental.OfflineFirstRentalAgreementsRepository
 import org.stkachenko.propertymanagement.core.data.repository.rental.OfflineFirstRentalInvitesRepository
 import org.stkachenko.propertymanagement.core.data.repository.rental.OfflineFirstRentalOffersRepository
 import org.stkachenko.propertymanagement.core.data.repository.rental.RentalAgreementsRepository
 import org.stkachenko.propertymanagement.core.data.repository.rental.RentalInvitesRepository
 import org.stkachenko.propertymanagement.core.data.repository.rental.RentalOffersRepository
-import org.stkachenko.propertymanagement.core.data.repository.userdata.UserDataRepository
+import org.stkachenko.propertymanagement.core.data.repository.user.OfflineFirstUsersRepository
+import org.stkachenko.propertymanagement.core.data.repository.user.UserRepository
 import org.stkachenko.propertymanagement.core.data.repository.userdata.OfflineFirstUserDataRepository
-import org.stkachenko.propertymanagement.core.data.util.NetworkMonitor
+import org.stkachenko.propertymanagement.core.data.repository.userdata.UserDataRepository
 import org.stkachenko.propertymanagement.core.data.util.ConnectivityManagerNetworkMonitor
-import org.stkachenko.propertymanagement.core.data.util.TimeZoneMonitor
+import org.stkachenko.propertymanagement.core.data.util.NetworkMonitor
 import org.stkachenko.propertymanagement.core.data.util.TimeZoneBroadcastMonitor
+import org.stkachenko.propertymanagement.core.data.util.TimeZoneMonitor
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -45,11 +41,6 @@ abstract class DataModule {
     internal abstract fun bindsUserRepository(
         userRepository: OfflineFirstUsersRepository,
     ): UserRepository
-
-    @Binds
-    internal abstract fun bindsProfileRepository(
-        profileRepository: OfflineFirstProfilesRepository
-    ): ProfileRepository
 
     @Binds
     internal abstract fun bindsUserDataRepository(
@@ -109,12 +100,6 @@ abstract class DataModule {
     internal abstract fun bindsRentalOffersRepository(
         rentalOffersRepository: OfflineFirstRentalOffersRepository,
     ): RentalOffersRepository
-
-    // Image
-    @Binds
-    internal abstract fun bindsImagesRepository(
-        imagesRepository: OfflineFirstImagesRepository,
-    ): ImagesRepository
 
     // Other
     @Binds

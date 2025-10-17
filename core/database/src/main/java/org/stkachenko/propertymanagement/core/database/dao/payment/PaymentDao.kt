@@ -27,6 +27,9 @@ interface PaymentDao {
     )
     fun getPaymentEntity(paymentId: String): Flow<PaymentEntity>
 
+    @Query("SELECT * FROM payments WHERE updatedAt > :timestamp")
+    suspend fun getPaymentsUpdatedAfter(timestamp: Long): List<PaymentEntity>
+
     @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
     suspend fun insertOrIgnorePayments(entities: List<PaymentEntity>): List<Long>
 

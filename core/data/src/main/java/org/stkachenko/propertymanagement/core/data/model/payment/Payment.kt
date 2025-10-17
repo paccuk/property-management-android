@@ -17,3 +17,18 @@ fun NetworkPayment.asEntity() = PaymentEntity(
     createdAt = createdAt,
     updatedAt = updatedAt,
 )
+
+fun PaymentEntity.asNetworkModel() = NetworkPayment(
+    id = id,
+    invoiceId = invoiceId,
+    payerId = payerId,
+    payeeId = payeeId,
+    amount = amount,
+    currency = currency,
+    paymentMethod = paymentMethod,
+    paidAt = paidAt,
+    status = status,
+    transactionReference = transactionReference,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

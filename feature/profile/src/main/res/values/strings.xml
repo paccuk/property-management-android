@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="feature_profile_title">Profile</string>
+    <string name="feature_profile_profile_loading_content_description">Profile loading.</string>
 </resources>

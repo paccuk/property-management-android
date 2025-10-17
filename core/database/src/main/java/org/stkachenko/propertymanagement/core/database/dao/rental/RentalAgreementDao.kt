@@ -19,6 +19,9 @@ interface RentalAgreementDao {
     )
     fun getRentalAgreementEntitiesByOfferId(offerId: String): Flow<List<RentalAgreementEntity>>
 
+    @Query("SELECT * FROM rental_agreements WHERE updatedAt > :timestamp")
+    suspend fun getRentalAgreementsUpdatedAfter(timestamp: Long): List<RentalAgreementEntity>
+
     @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
     suspend fun insertOrIgnoreRentalAgreements(entities: List<RentalAgreementEntity>): List<Long>
 

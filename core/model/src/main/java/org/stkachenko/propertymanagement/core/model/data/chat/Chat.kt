@@ -1,6 +1,5 @@
 package org.stkachenko.propertymanagement.core.model.data.chat
 
-import org.stkachenko.propertymanagement.core.model.data.image.Image
 
 data class Chat(
     val id: String,
@@ -12,6 +11,6 @@ data class Chat(
     val isPinned: Boolean,
     val isDeleted: Boolean,
     val isBlocked: Boolean,
-    val images: List<Image>,
+    val images: List<String>,
     val lastMessageId: String?,
 )

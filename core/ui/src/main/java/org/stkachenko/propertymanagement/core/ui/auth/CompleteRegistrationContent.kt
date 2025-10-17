@@ -39,7 +39,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.stkachenko.propertymanagement.core.designsystem.theme.PmTheme
+import org.stkachenko.propertymanagement.core.ui.ActionTitle
+import org.stkachenko.propertymanagement.core.ui.AuthButton
+import org.stkachenko.propertymanagement.core.ui.InputTextField
 import org.stkachenko.propertymanagement.core.ui.R
+import org.stkachenko.propertymanagement.core.ui.RoleSelector
 
 @Composable
 fun CompleteRegistrationContent(

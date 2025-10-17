@@ -7,5 +7,7 @@ data class User(
     val email: String,
     val phone: String,
     val role: UserRole,
-    val avatarImages: List<String>,
+    val avatarImageUrl: String?,
+    val updatedAt: Long,
+    val createdAt: Long,
 )

@@ -16,8 +16,9 @@ data class UserEntity(
     val email: String,
     val phone: String,
     val role: UserRole,
-    val avatarImages: List<String>,
-    val isPendingSync: Boolean = false
+    val avatarImageUrl: String,
+    val updatedAt: Long,
+    val createdAt: Long,
 )
 
 fun UserEntity.asExternalModel() = User(
@@ -27,5 +28,7 @@ fun UserEntity.asExternalModel() = User(
     email = email,
     phone = phone,
     role = role,
-    avatarImages = avatarImages,
+    avatarImageUrl = avatarImageUrl,
+    updatedAt = updatedAt,
+    createdAt = createdAt,
 )

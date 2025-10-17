@@ -14,7 +14,6 @@ internal class OfflineFirstUserDataRepository @Inject constructor(
     override val userData: Flow<UserData> =
         pmPreferencesDataSource.userData
 
-
     override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
         pmPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
     }

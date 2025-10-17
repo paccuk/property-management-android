@@ -107,4 +107,18 @@
 
     <string name="core_ui_auth_register_text_button">Register</string>
     <string name="core_ui_auth_login_text_button">Login</string>
+
+    <string name="core_ui_profile_settings_select_theme_text">Select Theme</string>
+    <string name="core_ui_profile_settings_ok_button">@android:string/ok</string>
+    <string name="core_ui_profile_settings_follow_system_radio_option">Follow System</string>
+    <string name="core_ui_profile_settings_light_radio_option">Light</string>
+    <string name="core_ui_profile_settings_dark_radio_option">Dark</string>
+    <string name="core_ui_profile_settings_label">Settings</string>
+    <string name="core_ui_profile_account_details_label">Account Details</string>
+    <string name="core_ui_profile_edit_dialog_header">Edit Profile Details</string>
+    <string name="core_ui_profile_edit_dialog_save_text_button">Save</string>
+    <string name="core_ui_profile_edit_dialog_first_name_label">First Name</string>
+    <string name="core_ui_profile_edit_dialog_last_name_label">Last Name</string>
+    <string name="core_ui_profile_edit_dialog_email_label">Email</string>
+    <string name="core_ui_profile_edit_dialog_phone_name_label">Phone</string>
 </resources>

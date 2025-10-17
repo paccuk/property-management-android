@@ -41,4 +41,7 @@ interface PaymentScheduleDao {
         """,
     )
     suspend fun deletePaymentSchedules(ids: List<String>)
+
+    @Query("SELECT * FROM payment_schedules WHERE updatedAt > :timestamp")
+    suspend fun getPaymentSchedulesUpdatedAfter(timestamp: Long): List<PaymentScheduleEntity>
 }

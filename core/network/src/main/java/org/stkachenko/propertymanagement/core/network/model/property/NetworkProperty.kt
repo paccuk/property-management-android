@@ -13,6 +13,7 @@ data class NetworkProperty(
     val isAvailable: Boolean,
     val address: Map<String, String>,
     val attributes: Map<String, String>,
+    val images: List<String>,
     val createdAt: Long,
     val updatedAt: Long,
 )

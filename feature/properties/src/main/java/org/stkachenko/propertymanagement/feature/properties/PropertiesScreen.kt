@@ -69,11 +69,9 @@ internal fun PropertiesRoute(
     viewModel: PropertiesViewModel = hiltViewModel(),
 ) {
     val propertiesState by viewModel.propertiesState.collectAsStateWithLifecycle()
-    val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
     val userRole by viewModel.userRole.collectAsStateWithLifecycle()
 
     PropertiesScreen(
-        isSyncing = isSyncing,
         propertiesState = propertiesState,
         onPropertyClick = onPropertyClick,
         userRole = userRole,
@@ -84,7 +82,6 @@ internal fun PropertiesRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PropertiesScreen(
-    isSyncing: Boolean,
     propertiesState: PropertiesUiState,
     onPropertyClick: (String) -> Unit,
     userRole: UserRoleState,
@@ -92,7 +89,7 @@ internal fun PropertiesScreen(
 ) {
     val isPropertiesLoading = propertiesState is PropertiesUiState.Loading
 
-    ReportDrawnWhen { !isSyncing && !isPropertiesLoading }
+    ReportDrawnWhen { !isPropertiesLoading }
 
     val itemsAvailable = propertyItemsSize(propertiesState)
 
@@ -101,7 +98,6 @@ internal fun PropertiesScreen(
         itemsAvailable = itemsAvailable,
     )
 
-    // ModalBottomSheet state
     val sheetState = rememberModalBottomSheetState()
     val showSheet = remember { mutableStateOf(false) }
 
@@ -125,7 +121,7 @@ internal fun PropertiesScreen(
         }
 
         AnimatedVisibility(
-            visible = isSyncing || isPropertiesLoading,
+            visible = isPropertiesLoading,
             enter = slideInVertically(
                 initialOffsetY = { fullHeight -> -fullHeight },
             ) + fadeIn(),
@@ -225,13 +221,12 @@ private fun NotificationPermissionEffect() {
 
 @DevicePreviews
 @Composable
-fun HomeScreenPreview(
+fun PropertiesScreenPreview(
     @PreviewParameter(UserPropertyPreviewParameterProvider::class)
     propertiesList: List<Property>,
 ) {
     PmTheme {
         PropertiesScreen(
-            isSyncing = false,
             propertiesState = PropertiesUiState.Success(propertiesList),
             onPropertyClick = {},
             userRole = UserRoleState.Success(UserRole.OWNER),

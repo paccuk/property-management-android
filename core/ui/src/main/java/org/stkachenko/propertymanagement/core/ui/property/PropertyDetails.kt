@@ -43,7 +43,6 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -51,7 +50,6 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import org.stkachenko.propertymanagement.core.designsystem.R.drawable
 import org.stkachenko.propertymanagement.core.designsystem.theme.PmTheme
-import org.stkachenko.propertymanagement.core.model.data.image.Image
 import org.stkachenko.propertymanagement.core.model.data.payment.Payment
 import org.stkachenko.propertymanagement.core.model.data.property.Property
 import org.stkachenko.propertymanagement.core.model.data.rental.RentalAgreement
@@ -85,7 +83,7 @@ fun PropertyContent(
                 modifier = Modifier
                     .verticalScroll(scroll)
                     .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(20.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 HeaderSection(propertyState.property)
                 AttributesSection(propertyState.property)
@@ -227,9 +225,9 @@ private fun Map<String, String>.readableAddress(): String {
 
 @Composable
 private fun PropertyDetailsHeaderImages(
-    images: List<Image>,
+    imagesUrls: List<String>,
 ) {
-    if (images.isEmpty()) {
+    if (imagesUrls.isEmpty()) {
         Image(
             modifier = Modifier
                 .fillMaxWidth()
@@ -241,9 +239,9 @@ private fun PropertyDetailsHeaderImages(
         return
     }
 
-    val pagerState = rememberPagerState { images.minByOrNull { it.position }!!.position }
-    val imageLoaders = images.map { image ->
-        rememberAsyncImagePainter(model = image.url)
+    val pagerState = rememberPagerState { imagesUrls.indices.firstOrNull() ?: 0 }
+    val imageLoaders = imagesUrls.map { imageUrl ->
+        rememberAsyncImagePainter(model = imageUrl)
     }
 
     val isLocalInspection = LocalInspectionMode.current
@@ -290,7 +288,7 @@ private fun PropertyDetailsHeaderImages(
                 .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            repeat(images.size) { index ->
+            repeat(imagesUrls.size) { index ->
                 val color = if (pagerState.currentPage == index) {
                     MaterialTheme.colorScheme.primary
                 } else {
@@ -346,7 +344,7 @@ private fun RoleActionsSection(
     onViewOffers: () -> Unit = {},
     onViewInvites: () -> Unit = {},
     onViewAgreements: () -> Unit = {},
-    onManagePayments: () -> Unit = {}
+    onManagePayments: () -> Unit = {},
 ) {
     Card(
         shape = RoundedCornerShape(12.dp),
@@ -394,7 +392,7 @@ private fun OwnerActions(
     onViewOffers: () -> Unit = {},
     onViewInvites: () -> Unit = {},
     onViewAgreements: () -> Unit = {},
-    onManagePayments: () -> Unit = {}
+    onManagePayments: () -> Unit = {},
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(
@@ -547,7 +545,6 @@ private fun PaymentsSection(userRole: UserRoleState) {
                     is UserRoleState.Success -> when (userRole.userRole) {
                         UserRole.OWNER -> Text("Owner payment management placeholder")
                         UserRole.TENANT -> Text("Tenant payment history placeholder")
-                        else -> Text("Unsupported role")
                     }
 
                     UserRoleState.Loading -> Text(
@@ -582,7 +579,7 @@ private fun NotFoundState() {
 @Composable
 private fun PropertyDetailsOwnerContentPreview(
     @PreviewParameter(UserPropertyPreviewParameterProvider::class)
-    propertiesList: List<Property>
+    propertiesList: List<Property>,
 ) {
     CompositionLocalProvider(
         LocalInspectionMode provides true
@@ -602,7 +599,7 @@ private fun PropertyDetailsOwnerContentPreview(
 @Composable
 private fun PropertyDetailsTenantContentPreview(
     @PreviewParameter(UserPropertyPreviewParameterProvider::class)
-    propertiesList: List<Property>
+    propertiesList: List<Property>,
 ) {
     CompositionLocalProvider(
         LocalInspectionMode provides true
@@ -622,7 +619,7 @@ private fun PropertyDetailsTenantContentPreview(
 @Composable
 private fun PropertyDetailsContentPreviewFullHeight(
     @PreviewParameter(UserPropertyPreviewParameterProvider::class)
-    propertiesList: List<Property>
+    propertiesList: List<Property>,
 ) {
     CompositionLocalProvider(
         LocalInspectionMode provides true
@@ -643,7 +640,7 @@ private fun PropertyDetailsContentPreviewFullHeight(
 private fun EditPropertyDialog(
     property: Property,
     onDismiss: () -> Unit,
-    onSave: (Property) -> Unit
+    onSave: (Property) -> Unit,
 ) {
     var price by remember { mutableStateOf(property.price.toString()) }
     var area by remember { mutableStateOf(property.area.toString()) }
@@ -744,7 +741,7 @@ private fun EditPropertyDialog(
 private fun CreateAgreementDialog(
     property: Property,
     onDismiss: () -> Unit,
-    onCreate: (RentalAgreement) -> Unit
+    onCreate: (RentalAgreement) -> Unit,
 ) {
     var offerId by remember { mutableStateOf("") }
     var tenantId by remember { mutableStateOf("") }
@@ -853,7 +850,7 @@ private fun CreateAgreementDialog(
 @Composable
 private fun ViewOffersDialog(
     offers: List<RentalOffer>,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -938,7 +935,7 @@ private fun ViewOffersDialog(
 @Composable
 private fun ViewInvitesDialog(
     invites: List<RentalInvite>,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -1012,7 +1009,7 @@ private fun ViewInvitesDialog(
 @Composable
 private fun ViewAgreementsDialog(
     agreements: List<RentalAgreement>,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -1089,7 +1086,7 @@ private fun ViewAgreementsDialog(
 @Composable
 private fun ManagePaymentsDialog(
     payments: List<Payment>,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,

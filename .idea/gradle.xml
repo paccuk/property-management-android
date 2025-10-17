@@ -47,8 +47,6 @@
             <option value="$PROJECT_DIR$/feature/profile" />
             <option value="$PROJECT_DIR$/feature/properties" />
             <option value="$PROJECT_DIR$/feature/statistics" />
-            <option value="$PROJECT_DIR$/sync" />
-            <option value="$PROJECT_DIR$/sync/work" />
           </set>
         </option>
       </GradleProjectSettings>

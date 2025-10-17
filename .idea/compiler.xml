@@ -17,6 +17,7 @@
       <module name="property-management-android.feature.properties" target="21" />
       <module name="property-management-android.feature.statistics" target="21" />
       <module name="propertymanagement.feature.home" target="21" />
+      <module name="propertymanagement.sync.work" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

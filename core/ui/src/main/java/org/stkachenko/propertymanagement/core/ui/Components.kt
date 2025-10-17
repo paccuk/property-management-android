@@ -1,4 +1,4 @@
-package org.stkachenko.propertymanagement.core.ui.auth
+package org.stkachenko.propertymanagement.core.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
@@ -210,8 +209,9 @@ private fun PmOutlinedTextField(
             .fillMaxWidth()
             .height(32.dp),
         textStyle = LocalTextStyle.current.copy(
-            fontSize = 8.sp,
+            fontSize = 12.sp,
             color = MaterialTheme.colorScheme.onSurface,
+            lineHeight = 16.sp,
         ),
         decorationBox = { innerTextField ->
             OutlinedTextFieldDefaults.DecorationBox(

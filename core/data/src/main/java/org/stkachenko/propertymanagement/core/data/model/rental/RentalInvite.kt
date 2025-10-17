@@ -14,3 +14,15 @@ fun NetworkRentalInvite.asEntity() = RentalInviteEntity(
     createdAt = createdAt,
     updatedAt = updatedAt,
 )
+
+fun RentalInviteEntity.asNetworkModel() = NetworkRentalInvite(
+    id = id,
+    offerId = offerId,
+    inviteType = inviteType,
+    inviteToken = inviteToken,
+    targetContact = targetContact,
+    status = status,
+    usedAt = usedAt,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

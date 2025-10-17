@@ -1,7 +1,6 @@
 package org.stkachenko.propertymanagement.core.ui.property
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import org.stkachenko.propertymanagement.core.model.data.image.Image
 import org.stkachenko.propertymanagement.core.ui.property.PreviewParameterData.properties
 import org.stkachenko.propertymanagement.core.model.data.property.Property
 
@@ -30,21 +29,9 @@ object PreviewParameterData {
                 "floors" to "2",
             ),
             images = listOf(
-                Image(
-                    "1",
-                    "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    0
-                ),
-                Image(
-                    "2",
-                    "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    1
-                ),
-                Image(
-                    "3",
-                    "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    2
-                ),
+                "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             ),
             createdAt = System.currentTimeMillis(),
             updatedAt = System.currentTimeMillis(),
@@ -65,11 +52,7 @@ object PreviewParameterData {
                 "hasGarage" to "true",
             ),
             images = listOf(
-                Image(
-                    "1",
-                    "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    0
-                )
+                "https://images.unsplash.com/photo-1612637968894-660373e23b03?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             ),
             createdAt = System.currentTimeMillis(),
             updatedAt = System.currentTimeMillis(),
@@ -90,11 +73,7 @@ object PreviewParameterData {
                 "numBedrooms" to "4",
             ),
             images = listOf(
-                Image(
-                    "2",
-                    "https://images.unsplash.com/photo-1501183638714-8f3c5a6c5d7e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    0
-                )
+                "https://images.unsplash.com/photo-1501183638714-8f3c5a6c5d7e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             ),
             createdAt = System.currentTimeMillis(),
             updatedAt = System.currentTimeMillis(),

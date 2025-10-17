@@ -12,3 +12,13 @@ fun NetworkInvoice.asEntity() = InvoiceEntity(
     createdAt = createdAt,
     updatedAt = updatedAt,
 )
+
+fun InvoiceEntity.asNetworkModel() = NetworkInvoice(
+    id = id,
+    scheduleId = scheduleId,
+    invoiceNumber = invoiceNumber,
+    issuedAt = issuedAt,
+    status = status,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+)

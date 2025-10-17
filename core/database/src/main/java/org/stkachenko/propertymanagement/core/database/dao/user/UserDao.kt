@@ -17,7 +17,10 @@ interface UserDao {
             WHERE id = :id
         """,
     )
-    fun getUserEntityById(id: String): Flow<UserEntity>
+    fun getUserEntityById(id: String): Flow<UserEntity?>
+
+    @Query("SELECT * FROM users WHERE updatedAt > :timestamp")
+    suspend fun getUsersUpdatedAfter(timestamp: Long): List<UserEntity>
 
     @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
     suspend fun insertOrIgnoreUsers(entities: List<UserEntity>): List<Long>
@@ -32,12 +35,4 @@ interface UserDao {
         """,
     )
     suspend fun deleteUsers(ids: List<String>)
-
-    @Query(
-        value = """
-            SELECT * FROM users
-            WHERE isPendingSync = 1
-        """
-    )
-    fun getPendingSyncUsers(): List<UserEntity>
 }
