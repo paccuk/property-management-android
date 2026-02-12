@@ -50,6 +50,10 @@ android {
             isIncludeAndroidResources = true
         }
     }
+
+    androidResources {
+        generateLocaleConfig = true
+    }
 }
 
 dependencies {
@@ -67,7 +71,6 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.model)
     implementation(projects.core.domain)
-//    implementation(projects.sync.work)
 
     // Core Android Libraries
     implementation(libs.androidx.activity.compose)
@@ -82,6 +85,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.window.core)
+    implementation(libs.androidx.appcompat)
 //    implementation(libs.kotlinx.coroutines.guava)
     implementation(libs.coil.kt)
 

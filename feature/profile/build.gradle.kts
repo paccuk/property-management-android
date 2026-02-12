@@ -11,6 +11,7 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.domain)
     api(projects.core.navigationContract)
+    api(projects.core.localization)
 
     testImplementation(projects.core.testing)
 

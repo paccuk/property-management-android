@@ -24,7 +24,7 @@ class TokenAuthenticator(
     private val ioDispatcher: CoroutineDispatcher,
     private val refreshMutex: Mutex,
     private val isLogoutStarted: () -> Boolean,
-    private val startLogout: () -> Unit,
+    private val startLogout: suspend () -> Unit,
 ) : Authenticator {
     private val json = Json { ignoreUnknownKeys = true }
 

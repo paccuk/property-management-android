@@ -55,11 +55,9 @@ import org.stkachenko.propertymanagement.core.designsystem.component.scrollbar.r
 import org.stkachenko.propertymanagement.core.designsystem.component.scrollbar.scrollbarState
 import org.stkachenko.propertymanagement.core.designsystem.theme.PmTheme
 import org.stkachenko.propertymanagement.core.model.data.property.Property
-import org.stkachenko.propertymanagement.core.model.data.user.UserRole
 import org.stkachenko.propertymanagement.core.ui.DevicePreviews
 import org.stkachenko.propertymanagement.core.ui.property.PropertiesUiState
 import org.stkachenko.propertymanagement.core.ui.property.UserPropertyPreviewParameterProvider
-import org.stkachenko.propertymanagement.core.ui.property.UserRoleState
 import org.stkachenko.propertymanagement.core.ui.property.propertiesList
 
 @Composable
@@ -69,12 +67,10 @@ internal fun PropertiesRoute(
     viewModel: PropertiesViewModel = hiltViewModel(),
 ) {
     val propertiesState by viewModel.propertiesState.collectAsStateWithLifecycle()
-    val userRole by viewModel.userRole.collectAsStateWithLifecycle()
 
     PropertiesScreen(
         propertiesState = propertiesState,
         onPropertyClick = onPropertyClick,
-        userRole = userRole,
         modifier = modifier,
     )
 }
@@ -84,7 +80,6 @@ internal fun PropertiesRoute(
 internal fun PropertiesScreen(
     propertiesState: PropertiesUiState,
     onPropertyClick: (String) -> Unit,
-    userRole: UserRoleState,
     modifier: Modifier = Modifier,
 ) {
     val isPropertiesLoading = propertiesState is PropertiesUiState.Loading
@@ -229,7 +224,6 @@ fun PropertiesScreenPreview(
         PropertiesScreen(
             propertiesState = PropertiesUiState.Success(propertiesList),
             onPropertyClick = {},
-            userRole = UserRoleState.Success(UserRole.OWNER),
         )
     }
 }

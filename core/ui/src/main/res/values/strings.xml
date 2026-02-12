@@ -121,4 +121,13 @@
     <string name="core_ui_profile_edit_dialog_last_name_label">Last Name</string>
     <string name="core_ui_profile_edit_dialog_email_label">Email</string>
     <string name="core_ui_profile_edit_dialog_phone_name_label">Phone</string>
+    <string name="core_ui_profile_settings_select_language_dialog_title">Select language</string>
+    <string name="core_ui_profile_settings_edit_profile_item_text">Edit Profile</string>
+    <string name="core_ui_profile_settings_theme_item_text">Theme</string>
+    <string name="core_ui_profile_settings_language_item_text">Language</string>
+    <string name="core_ui_profile_settings_logout_item_text">Log out</string>
+    <string name="core_ui_profile_settings_change_password_item_text">Change password</string>
+    <string name="core_ui_profile_change_password_current_password_label">Current password</string>
+    <string name="core_ui_profile_change_password_new_password_label">New password</string>
+    <string name="core_ui_profile_change_password_confirm_new_password_label">Confirm new password</string>
 </resources>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_ui_small_card_tap_action">Zobacz szczegóły nieruchomości</string>
+    <string name="core_ui_property_card_expanded_tap_action">Zobacz szczegóły nieruchomości</string>
+
+    <string name="core_ui_property_details_owner_edit_property_button">Edytuj nieruchomość</string>
+    <string name="core_ui_property_details_owner_create_agreement_button">Utwórz umowę</string>
+    <string name="core_ui_property_details_owner_view_offers_button">Zobacz oferty</string>
+    <string name="core_ui_property_details_owner_view_invites_button">Zobacz zaproszenia</string>
+    <string name="core_ui_property_details_owner_view_agreements_button">Zobacz umowy</string>
+    <string name="core_ui_property_details_owner_manage_payments_button">Zarządzaj płatnościami</string>
+    <string name="core_ui_property_details_attributes_card">Atrybuty</string>
+    <string name="core_ui_property_details_agreements_invitations_card">Umowy i Zaproszenia</string>
+    <string name="core_ui_property_details_tenant_my_agreements_button">Moje umowy</string>
+    <string name="core_ui_property_details_tenant_payment_history_button">Historia płatności</string>
+
+    <!-- EditPropertyDialog -->
+    <string name="core_ui_property_details_edit_dialog_title">Edytuj nieruchomość</string>
+    <string name="core_ui_property_details_edit_dialog_price_label">Cena</string>
+    <string name="core_ui_property_details_edit_dialog_area_label">Powierzchnia (m²)</string>
+    <string name="core_ui_property_details_edit_dialog_currency_label">Waluta</string>
+    <string name="core_ui_property_details_edit_dialog_address_label">Adres</string>
+    <string name="core_ui_property_details_edit_dialog_availability_label">Dostępność:</string>
+    <string name="core_ui_property_details_edit_dialog_available">Dostępna</string>
+    <string name="core_ui_property_details_edit_dialog_not_available">Niedostępna</string>
+    <string name="core_ui_property_details_save_button">Zapisz</string>
+    <string name="core_ui_property_details_cancel_button">Anuluj</string>
+
+    <!-- CreateAgreementDialog -->
+    <string name="core_ui_property_details_create_agreement_dialog_title">Utwórz umowę</string>
+    <string name="core_ui_property_details_create_agreement_dialog_offer_id_label">ID oferty</string>
+    <string name="core_ui_property_details_create_agreement_dialog_tenant_id_label">ID najemcy</string>
+    <string name="core_ui_property_details_create_agreement_dialog_start_date_label">Data rozpoczęcia (dd.mm.rrrr)</string>
+    <string name="core_ui_property_details_create_agreement_dialog_end_date_label">Data zakończenia (dd.mm.rrrr)</string>
+    <string name="core_ui_property_details_create_agreement_dialog_status_label">Status</string>
+    <string name="core_ui_property_details_create_agreement_dialog_property_id">ID nieruchomości: %s</string>
+    <string name="core_ui_property_details_create_button">Utwórz</string>
+
+    <!-- ViewOffersDialog -->
+    <string name="core_ui_property_details_view_offers_dialog_title">Oferty</string>
+    <string name="core_ui_property_details_view_offers_dialog_no_offers">Brak dostępnych ofert</string>
+    <string name="core_ui_property_details_view_offers_dialog_offer_id">ID: %s</string>
+    <string name="core_ui_property_details_view_offers_dialog_price">Cena: %s %s</string>
+    <string name="core_ui_property_details_view_offers_dialog_status">Status: %s</string>
+    <string name="core_ui_property_details_view_offers_dialog_status_active">Aktywna</string>
+    <string name="core_ui_property_details_view_offers_dialog_status_inactive">Nieaktywna</string>
+    <string name="core_ui_property_details_view_offers_dialog_max_tenants">Maks. najemców: %d</string>
+    <string name="core_ui_property_details_view_offers_dialog_available_from">Dostępna od: %s</string>
+    <string name="core_ui_property_details_view_offers_dialog_available_to">Dostępna do: %s</string>
+    <string name="core_ui_property_details_close_button">Zamknij</string>
+
+    <!-- ViewInvitesDialog -->
+    <string name="core_ui_property_details_view_invites_dialog_title">Zaproszenia</string>
+    <string name="core_ui_property_details_view_invites_dialog_no_invites">Brak dostępnych zaproszeń</string>
+    <string name="core_ui_property_details_view_invites_dialog_invite_id">ID: %s</string>
+    <string name="core_ui_property_details_view_invites_dialog_contact">Kontakt: %s</string>
+    <string name="core_ui_property_details_view_invites_dialog_type">Typ: %s</string>
+    <string name="core_ui_property_details_view_invites_dialog_status">Status: %s</string>
+    <string name="core_ui_property_details_view_invites_dialog_offer_id">ID oferty: %s</string>
+
+    <!-- ViewAgreementsDialog -->
+    <string name="core_ui_property_details_view_agreements_dialog_title">Umowy</string>
+    <string name="core_ui_property_details_view_agreements_dialog_no_agreements">Brak dostępnych umów</string>
+    <string name="core_ui_property_details_view_agreements_dialog_agreement_id">ID: %s</string>
+    <string name="core_ui_property_details_view_agreements_dialog_tenant">Najemca: %s</string>
+    <string name="core_ui_property_details_view_agreements_dialog_status">Status: %s</string>
+    <string name="core_ui_property_details_view_agreements_dialog_period">Okres: %s - %s</string>
+
+    <!-- ManagePaymentsDialog -->
+    <string name="core_ui_property_details_manage_payments_dialog_title">Płatności</string>
+    <string name="core_ui_property_details_manage_payments_dialog_no_payments">Brak dostępnych płatności</string>
+    <string name="core_ui_property_details_manage_payments_dialog_payment_id">ID: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_amount">Kwota: %s %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_status">Status: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_method">Metoda: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_from">Od: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_to">Do: %s</string>
+    <string name="core_ui_property_details_manage_payments_dialog_date">Data płatności: %s</string>
+
+    <!-- HeaderSection -->
+    <string name="core_ui_property_details_header_type">Typ: %s</string>
+    <string name="core_ui_property_details_header_area">Powierzchnia: %s m²</string>
+    <string name="core_ui_property_details_header_available">Dostępność: %s</string>
+    <string name="core_ui_property_details_header_available_yes">Tak</string>
+    <string name="core_ui_property_details_header_available_no">Nie</string>
+
+    <string name="core_ui_auth_login_title">Zaloguj się</string>
+    <string name="core_ui_auth_registration_title">Zarejestruj się</string>
+    <string name="core_ui_auth_complete_registration_title">Dokończ rejestrację</string>
+
+    <string name="core_ui_auth_email_text_field">E-mail</string>
+    <string name="core_ui_auth_password_text_field">Hasło</string>
+    <string name="core_ui_auth_confirm_password_text_field">Potwierdź hasło</string>
+    <string name="core_ui_auth_first_name_text_field">Imię</string>
+    <string name="core_ui_auth_last_name_text_field">Nazwisko</string>
+    <string name="core_ui_auth_phone_text_field">Telefon</string>
+    <string name="core_ui_auth_role_text_field">Rola</string>
+    <string name="core_ui_auth_avatar_text_field">Awatar</string>
+
+    <string name="core_ui_auth_login_button">Zaloguj się</string>
+    <string name="core_ui_auth_register_button">Kontynuuj</string>
+    <string name="core_ui_auth_complete_registration_button">Zarejestruj się</string>
+
+    <string name="core_ui_auth_dont_have_account_text">Nie masz konta?</string>
+    <string name="core_ui_auth_already_have_account_text">Masz już konto?</string>
+
+    <string name="core_ui_auth_register_text_button">Zarejestruj się</string>
+    <string name="core_ui_auth_login_text_button">Zaloguj się</string>
+
+    <string name="core_ui_profile_settings_select_theme_text">Wybierz motyw</string>
+    <string name="core_ui_profile_settings_ok_button">@android:string/ok</string>
+    <string name="core_ui_profile_settings_follow_system_radio_option">Zgodnie z systemem</string>
+    <string name="core_ui_profile_settings_light_radio_option">Jasny</string>
+    <string name="core_ui_profile_settings_dark_radio_option">Ciemny</string>
+    <string name="core_ui_profile_settings_label">Ustawienia</string>
+    <string name="core_ui_profile_account_details_label">Dane konta</string>
+    <string name="core_ui_profile_edit_dialog_header">Edytuj dane profilu</string>
+    <string name="core_ui_profile_edit_dialog_save_text_button">Zapisz</string>
+    <string name="core_ui_profile_edit_dialog_first_name_label">Imię</string>
+    <string name="core_ui_profile_edit_dialog_last_name_label">Nazwisko</string>
+    <string name="core_ui_profile_edit_dialog_email_label">E-mail</string>
+    <string name="core_ui_profile_edit_dialog_phone_name_label">Telefon</string>
+    <string name="core_ui_profile_settings_select_language_dialog_title">Wybierz język</string>
+    <string name="core_ui_profile_settings_edit_profile_item_text">Edytuj profil</string>
+    <string name="core_ui_profile_settings_theme_item_text">Motyw</string>
+    <string name="core_ui_profile_settings_language_item_text">Język</string>
+    <string name="core_ui_profile_settings_logout_item_text">Wyloguj się</string>
+    <string name="core_ui_profile_settings_change_password_item_text">Zmienić hasło</string>
+    <string name="core_ui_profile_change_password_current_password_label">Stare hasło</string>
+    <string name="core_ui_profile_change_password_new_password_label">Nowe hasło</string>
+    <string name="core_ui_profile_change_password_confirm_new_password_label">Potwierdź nowe hasło</string>
+</resources>

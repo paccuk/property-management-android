@@ -10,6 +10,7 @@ android {
 dependencies {
     api(projects.core.designsystem)
     api(projects.core.model)
+    api(projects.core.localization)
 
     implementation(libs.androidx.browser)
     implementation(libs.coil.kt)

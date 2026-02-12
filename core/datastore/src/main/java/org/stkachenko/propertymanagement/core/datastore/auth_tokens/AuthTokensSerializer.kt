@@ -6,8 +6,9 @@ import com.google.protobuf.InvalidProtocolBufferException
 import org.stkachenko.propertymanagement.core.datastore.AuthTokens
 import java.io.InputStream
 import java.io.OutputStream
+import javax.inject.Inject
 
-object AuthTokensSerializer : Serializer<AuthTokens> {
+class AuthTokensSerializer @Inject constructor() : Serializer<AuthTokens> {
     override val defaultValue: AuthTokens = AuthTokens.getDefaultInstance()
     override suspend fun readFrom(input: InputStream): AuthTokens =
         try {

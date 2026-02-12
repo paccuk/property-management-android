@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -20,14 +21,6 @@ class PropertiesViewModel @Inject constructor(
     userSessionRepository: UserSessionRepository,
     getProperties: GetPropertiesByOwnerIdUseCase,
 ) : ViewModel() {
-    val userRole: StateFlow<UserRoleState> = userSessionRepository.userSessionData
-        .map { UserRoleState.Success(it.userRole) }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = UserRoleState.Loading,
-        )
-
     val propertiesState: StateFlow<PropertiesUiState> =
         userSessionRepository.userSessionData
             .map { it.userId }
@@ -41,9 +34,3 @@ class PropertiesViewModel @Inject constructor(
                 initialValue = PropertiesUiState.Loading,
             )
 }
-
-//fun followTopicToggle(followed: Boolean) {
-//    viewModelScope.launch {
-//        userDataRepository.setTopicIdFollowed(topicArgs.topicId, followed)
-//    }
-//}

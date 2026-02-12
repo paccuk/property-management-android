@@ -5,10 +5,11 @@ import org.stkachenko.propertymanagement.core.storage.TRANSFORMATION
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
+import javax.inject.Inject
 
 private const val T_LEN = 128
 
-class AesEncryptor : Encryptor {
+class AesEncryptor @Inject constructor() : Encryptor {
 
     override fun encrypt(data: ByteArray, secretKey: SecretKey): TokenData {
         val cipher = Cipher.getInstance(TRANSFORMATION)

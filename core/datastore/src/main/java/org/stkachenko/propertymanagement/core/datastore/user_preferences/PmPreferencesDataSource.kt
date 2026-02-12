@@ -86,6 +86,16 @@ class PmPreferencesDataSource @Inject constructor(
         }
     }
 
+    suspend fun clearUserSessionData() {
+        userPreferences.updateData {
+            it.toBuilder()
+                .clearUserId()
+                .clearUserRole()
+                .clearIsLoggedIn()
+                .build()
+        }
+    }
+
     suspend fun getLastPropertySyncTime(): Long {
         return userPreferences.data.map { it.lastPropertySyncTime }.firstOrNull() ?: 0L
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Property Management</string>
-    <string name="not_connected">⚠️ You aren’t connected to the internet</string>
+    <string name="app_name" translatable="false">Property Management</string>
+    <string name="not_connected" translatable="false">⚠️ You aren’t connected to the internet</string>
 
 </resources>

@@ -39,7 +39,7 @@ private interface AuthRetrofitPmNetworkApi {
 private const val AUTH_BASE_URL = BuildConfig.AUTH_BACKEND_URL
 
 @Singleton
-internal class AuthRetrofitNetwork @Inject constructor(
+class AuthRetrofitNetwork @Inject constructor(
     networkJson: Json,
     @Named("public") okHttpFactory: dagger.Lazy<Call.Factory>,
 ) : AuthNetworkDataSource {

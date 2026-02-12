@@ -13,12 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.outlined.Logout
@@ -27,9 +25,9 @@ import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material.icons.outlined.Password
 import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -39,7 +37,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -62,8 +59,6 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -75,19 +70,24 @@ import coil.compose.rememberAsyncImagePainter
 import org.stkachenko.propertymanagement.core.designsystem.R.drawable
 import org.stkachenko.propertymanagement.core.designsystem.component.PmOverlayBuildingHouseLoading
 import org.stkachenko.propertymanagement.core.designsystem.theme.PmTheme
+import org.stkachenko.propertymanagement.core.localization.Language
 import org.stkachenko.propertymanagement.core.model.data.user.User
 import org.stkachenko.propertymanagement.core.model.data.userdata.DarkThemeConfig
 import org.stkachenko.propertymanagement.core.ui.InputTextField
+import org.stkachenko.propertymanagement.core.ui.PasswordInputTextField
 import org.stkachenko.propertymanagement.core.ui.R
+
 
 @Composable
 fun ProfileContent(
     profileState: ProfileUiState,
     settingsUiState: SettingsUiState,
+    localeUiState: LocaleUiState,
     onEditProfileClick: (String, String, String, String) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
-    onLanguageChangeClick: () -> Unit,
-    onLogoutClick: () -> Unit,
+    onLanguageChange: (String) -> Unit,
+    onChangePassword: (String, String, String) -> Unit,
+    onLogout: () -> Unit,
 ) {
     when (profileState) {
         is ProfileUiState.Loading -> Unit
@@ -99,10 +99,12 @@ fun ProfileContent(
             ProfileContentSuccess(
                 user = profileState.user,
                 settingsUiState = settingsUiState,
+                localeUiState = localeUiState,
                 onEditProfileClick = onEditProfileClick,
                 onChangeDarkThemeConfig = onChangeDarkThemeConfig,
-                onLanguageChangeClick = onLanguageChangeClick,
-                onLogoutClick = onLogoutClick,
+                onLanguageChange = onLanguageChange,
+                onChangePassword = onChangePassword,
+                onLogout = onLogout,
             )
         }
     }
@@ -112,10 +114,12 @@ fun ProfileContent(
 fun ProfileContentSuccess(
     user: User,
     settingsUiState: SettingsUiState,
+    localeUiState: LocaleUiState,
     onEditProfileClick: (String, String, String, String) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
-    onLanguageChangeClick: () -> Unit,
-    onLogoutClick: () -> Unit,
+    onLanguageChange: (String) -> Unit,
+    onChangePassword: (String, String, String) -> Unit,
+    onLogout: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val loadingContentDescriptor = "Loading user settings"
@@ -142,6 +146,8 @@ fun ProfileContentSuccess(
             is SettingsUiState.Success -> {
                 var showThemeDialog by remember { mutableStateOf(false) }
                 var showEditProfileDialog by remember { mutableStateOf(false) }
+                var showChangeLanguageDialog by remember { mutableStateOf(false) }
+                var showChangePasswordDialog by remember { mutableStateOf(false) }
 
                 if (showThemeDialog) {
                     ChangeThemeDialog(
@@ -154,16 +160,32 @@ fun ProfileContentSuccess(
                 if (showEditProfileDialog) {
                     EditProfileDialog(
                         user = user,
-                        onDismiss = { showEditProfileDialog = false },
+                        onDismissRequest = { showEditProfileDialog = false },
                         onSaveClick = onEditProfileClick,
+                    )
+                }
+
+                if (showChangeLanguageDialog) {
+                    ChangeLanguageDialog(
+                        selectedLanguage = localeUiState.selectedLanguage,
+                        onDismissRequest = { showChangeLanguageDialog = false },
+                        onChangeLanguage = onLanguageChange
+                    )
+                }
+
+                if (showChangePasswordDialog) {
+                    ChangePasswordDialog(
+                        onDismissRequest = { showChangePasswordDialog = false },
+                        onChangePassword = onChangePassword
                     )
                 }
 
                 SettingsSection(
                     onEditProfileClick = { showEditProfileDialog = true },
                     onThemeChangeClick = { showThemeDialog = true },
-                    onLanguageChangeClick = onLanguageChangeClick,
-                    onLogoutClick = onLogoutClick
+                    onLanguageChangeClick = { showChangeLanguageDialog = true },
+                    onChangePasswordClick = { showChangePasswordDialog = true },
+                    onLogoutClick = onLogout
                 )
             }
         }
@@ -262,6 +284,7 @@ private fun SettingsSection(
     onEditProfileClick: () -> Unit,
     onThemeChangeClick: () -> Unit,
     onLanguageChangeClick: () -> Unit,
+    onChangePasswordClick: () -> Unit,
     onLogoutClick: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -281,28 +304,35 @@ private fun SettingsSection(
             ) {
                 SettingItem(
                     icon = Icons.Outlined.Edit,
-                    text = "Edit Profile",
+                    text = stringResource(R.string.core_ui_profile_settings_edit_profile_item_text),
                     onClick = onEditProfileClick
                 )
                 HorizontalDivider()
                 SettingItem(
                     icon = Icons.Outlined.Palette,
-                    text = "Theme",
+                    text = stringResource(R.string.core_ui_profile_settings_theme_item_text),
                     onClick = onThemeChangeClick
                 )
                 HorizontalDivider()
                 SettingItem(
                     icon = Icons.Outlined.Language,
-                    text = "Language",
+                    text = stringResource(R.string.core_ui_profile_settings_language_item_text),
                     onClick = onLanguageChangeClick
                 )
                 HorizontalDivider()
                 SettingItem(
+                    icon = Icons.Outlined.Password,
+                    text = stringResource(R.string.core_ui_profile_settings_change_password_item_text),
+                    onClick = onChangePasswordClick
+                )
+                HorizontalDivider()
+                SettingItem(
                     icon = Icons.AutoMirrored.Outlined.Logout,
-                    text = "Log Out",
+                    text = stringResource(R.string.core_ui_profile_settings_logout_item_text),
                     onClick = onLogoutClick,
                     tint = MaterialTheme.colorScheme.error.copy(alpha = 0.7F)
                 )
+
             }
         }
     }
@@ -340,6 +370,152 @@ private fun SettingItem(
             tint = tint.copy(alpha = 0.6f)
         )
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ChangePasswordDialog(
+    onDismissRequest: () -> Unit,
+    onChangePassword: (String, String, String) -> Unit,
+) {
+    var currentPassword by remember { mutableStateOf("") }
+    var newPassword by remember { mutableStateOf("") }
+    var confirmNewPassword by remember { mutableStateOf("") }
+
+    Dialog(
+        onDismissRequest = onDismissRequest,
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+    ) {
+        Surface(
+            modifier = Modifier
+                .fillMaxSize(),
+            color = MaterialTheme.colorScheme.surface,
+        ) {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = {
+                            Text(
+                                text = stringResource(R.string.core_ui_profile_settings_change_password_item_text),
+                                style = MaterialTheme.typography.headlineSmall,
+                                color = MaterialTheme.colorScheme.onSurface,
+                                fontSize = 22.sp,
+                                lineHeight = 2.sp,
+                            )
+                        },
+                        navigationIcon = {
+                            IconButton(onClick = onDismissRequest) {
+                                Icon(
+                                    Icons.Default.Close,
+                                    tint = MaterialTheme.colorScheme.onSurface,
+                                    contentDescription = null
+                                )
+                            }
+                        },
+                        actions = {
+                            TextButton(
+                                onClick = {
+                                    onChangePassword(
+                                        currentPassword,
+                                        newPassword,
+                                        confirmNewPassword
+                                    )
+                                    onDismissRequest()
+                                },
+                                enabled = currentPassword.isNotBlank() &&
+                                        newPassword.isNotBlank() &&
+                                        confirmNewPassword.isNotBlank()
+                            ) {
+                                Text(stringResource(R.string.core_ui_profile_edit_dialog_save_text_button))
+                            }
+                        }
+                    )
+                },
+            ) { innerPadding ->
+                Column(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.Top,
+                ) {
+                    PasswordInputTextField(
+                        value = currentPassword,
+                        onValueChange = { currentPassword = it },
+                        stringResId = R.string.core_ui_profile_change_password_current_password_label,
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    PasswordInputTextField(
+                        value = newPassword,
+                        onValueChange = { newPassword = it },
+                        stringResId = R.string.core_ui_profile_change_password_new_password_label,
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    PasswordInputTextField(
+                        value = confirmNewPassword,
+                        onValueChange = { confirmNewPassword = it },
+                        stringResId = R.string.core_ui_profile_change_password_confirm_new_password_label,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ChangeLanguageDialog(
+    selectedLanguage: String,
+    onDismissRequest: () -> Unit,
+    onChangeLanguage: (String) -> Unit,
+) {
+    val radioOptions = mapOf(
+        Language.ENGLISH.code to Language.ENGLISH.displayLanguage,
+        Language.POLISH.code to Language.POLISH.displayLanguage,
+    )
+    var selectedLang by remember { mutableStateOf(selectedLanguage) }
+
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = { Text(stringResource(R.string.core_ui_profile_settings_select_language_dialog_title)) },
+        text = {
+            Column(Modifier.selectableGroup()) {
+                radioOptions.forEach { (langCode, label) ->
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(56.dp)
+                            .selectable(
+                                selected = (langCode == selectedLang),
+                                onClick = { selectedLang = langCode },
+                                role = Role.RadioButton
+                            )
+                            .padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = (langCode == selectedLang),
+                            onClick = null
+                        )
+                        Text(
+                            text = label,
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onChangeLanguage(selectedLang)
+                    onDismissRequest()
+                }
+            ) {
+                Text(stringResource(R.string.core_ui_profile_settings_ok_button))
+            }
+        }
+    )
 }
 
 @Composable
@@ -450,7 +626,7 @@ fun ProfileAvatar(
 @Composable
 fun EditProfileDialog(
     user: User,
-    onDismiss: () -> Unit,
+    onDismissRequest: () -> Unit,
     onSaveClick: (firstName: String, lastName: String, email: String, phone: String) -> Unit,
 ) {
     var firstName by remember(user.firstName) { mutableStateOf(user.firstName) }
@@ -459,7 +635,7 @@ fun EditProfileDialog(
     var phone by remember(user.phone) { mutableStateOf(user.phone) }
 
     Dialog(
-        onDismissRequest = onDismiss,
+        onDismissRequest = onDismissRequest,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
         Surface(
@@ -480,7 +656,7 @@ fun EditProfileDialog(
                             )
                         },
                         navigationIcon = {
-                            IconButton(onClick = onDismiss) {
+                            IconButton(onClick = onDismissRequest) {
                                 Icon(
                                     Icons.Default.Close,
                                     tint = MaterialTheme.colorScheme.onSurface,
@@ -492,7 +668,7 @@ fun EditProfileDialog(
                             TextButton(
                                 onClick = {
                                     onSaveClick(firstName, lastName, email, phone)
-                                    onDismiss()
+                                    onDismissRequest()
                                 },
                             ) {
                                 Text(stringResource(R.string.core_ui_profile_edit_dialog_save_text_button))
@@ -555,6 +731,28 @@ sealed interface SettingsUiState {
     data class Success(val settings: UserEditableSettings) : SettingsUiState
 }
 
+data class LocaleUiState(
+    val selectedLanguage: String = "",
+)
+
+@Preview
+@Composable
+private fun ChangePasswordDialogPreview() {
+    CompositionLocalProvider(
+        LocalInspectionMode provides true
+    ) {
+        PmTheme {
+            Surface {
+                ChangePasswordDialog(
+                    onDismissRequest = {},
+                    onChangePassword = { _, _, _ -> }
+                )
+            }
+        }
+    }
+}
+
+
 @Preview
 @Composable
 private fun EditProfileDialogPreview(
@@ -568,8 +766,26 @@ private fun EditProfileDialogPreview(
             Surface {
                 EditProfileDialog(
                     user = usersList[0],
-                    onDismiss = {},
+                    onDismissRequest = {},
                     onSaveClick = { _, _, _, _ -> }
+                )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun ChangeLanguageDialogPreview() {
+    CompositionLocalProvider(
+        LocalInspectionMode provides true
+    ) {
+        PmTheme {
+            Surface {
+                ChangeLanguageDialog(
+                    selectedLanguage = Language.ENGLISH.code,
+                    onDismissRequest = {},
+                    onChangeLanguage = {}
                 )
             }
         }
@@ -613,10 +829,14 @@ private fun OwnerProfileContentSuccessPreview(
                             darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
                         )
                     ),
+                    localeUiState = LocaleUiState(
+                        selectedLanguage = Language.ENGLISH.code
+                    ),
                     onEditProfileClick = { _, _, _, _ -> },
                     onChangeDarkThemeConfig = {},
-                    onLanguageChangeClick = {},
-                    onLogoutClick = {},
+                    onLanguageChange = {},
+                    onChangePassword = { _, _, _ -> },
+                    onLogout = {},
                 )
             }
         }
@@ -642,10 +862,14 @@ private fun TenantProfileContentSuccessPreview(
                             darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
                         )
                     ),
+                    localeUiState = LocaleUiState(
+                        selectedLanguage = Language.ENGLISH.code
+                    ),
                     onEditProfileClick = { _, _, _, _ -> },
                     onChangeDarkThemeConfig = {},
-                    onLanguageChangeClick = {},
-                    onLogoutClick = {}
+                    onLanguageChange = {},
+                    onChangePassword = { _, _, _ -> },
+                    onLogout = {}
                 )
             }
         }
@@ -668,10 +892,14 @@ private fun ProfileContentLoadingPreview() {
                             darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
                         )
                     ),
+                    localeUiState = LocaleUiState(
+                        selectedLanguage = Language.ENGLISH.code
+                    ),
                     onEditProfileClick = { _, _, _, _ -> },
                     onChangeDarkThemeConfig = {},
-                    onLanguageChangeClick = {},
-                    onLogoutClick = {}
+                    onLanguageChange = {},
+                    onChangePassword = { _, _, _ -> },
+                    onLogout = {}
                 )
             }
         }

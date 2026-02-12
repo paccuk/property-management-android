@@ -18,6 +18,7 @@ import org.stkachenko.propertymanagement.core.network.model.property.NetworkProp
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalAgreement
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalInvite
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalOffer
+import org.stkachenko.propertymanagement.core.network.model.user.ChangePasswordRequest
 import org.stkachenko.propertymanagement.core.network.model.user.CompleteUserProfileRequest
 import org.stkachenko.propertymanagement.core.network.model.user.NetworkUser
 import org.stkachenko.propertymanagement.core.network.model.user.UpdateUserProfileRequest
@@ -261,6 +262,10 @@ private interface RetrofitPmNetworkApi {
     @GET("users/me")
     suspend fun getUserByToken(): NetworkResponse<NetworkUser>
 
+    @POST("users/changePassword")
+    suspend fun changePassword(
+        @Body request: ChangePasswordRequest,
+    ): NetworkResponse<NetworkUser>
 }
 
 private const val PM_BASE_URL = BuildConfig.BACKEND_URL
@@ -294,6 +299,9 @@ internal class ProtectedRetrofitNetwork @Inject constructor(
 
     override suspend fun getUserByToken(): NetworkUser =
         networkApi.getUserByToken().data
+
+    override suspend fun changePassword(changePasswordRequest: ChangePasswordRequest): NetworkUser =
+        networkApi.changePassword(changePasswordRequest).data
 
     override suspend fun getUsers(ids: List<String>?): List<NetworkUser> =
         networkApi.getUsers(ids).data

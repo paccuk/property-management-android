@@ -12,9 +12,5 @@ class PmaApplication : Application(), ImageLoaderFactory {
     @Inject
     lateinit var imageLoader: dagger.Lazy<ImageLoader>
 
-    override fun onCreate() {
-        super.onCreate()
-    }
-
     override fun newImageLoader(): ImageLoader = imageLoader.get()
 }

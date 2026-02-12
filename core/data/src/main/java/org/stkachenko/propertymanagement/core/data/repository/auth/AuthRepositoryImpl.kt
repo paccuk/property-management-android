@@ -6,12 +6,14 @@ import org.stkachenko.propertymanagement.core.model.data.usersession.UserSession
 import org.stkachenko.propertymanagement.core.network.AuthNetworkDataSource
 import org.stkachenko.propertymanagement.core.network.Dispatcher
 import org.stkachenko.propertymanagement.core.network.PmDispatchers.IO
+import org.stkachenko.propertymanagement.core.network.di.LogoutState
 import org.stkachenko.propertymanagement.core.storage.TokenStorage
 import javax.inject.Inject
 
 internal class AuthRepositoryImpl @Inject constructor(
     private val tokenStorage: TokenStorage,
     private val network: AuthNetworkDataSource,
+    private val logoutState: LogoutState,
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
 ) : AuthRepository {
 
@@ -24,6 +26,8 @@ internal class AuthRepositoryImpl @Inject constructor(
             accessToken = response.accessToken,
             refreshToken = response.refreshToken,
         )
+
+        logoutState.resetLogoutState()
 
         return@withContext true
     }

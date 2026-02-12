@@ -10,6 +10,7 @@ import org.stkachenko.propertymanagement.core.network.model.property.NetworkProp
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalAgreement
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalInvite
 import org.stkachenko.propertymanagement.core.network.model.rental.NetworkRentalOffer
+import org.stkachenko.propertymanagement.core.network.model.user.ChangePasswordRequest
 import org.stkachenko.propertymanagement.core.network.model.user.CompleteUserProfileRequest
 import org.stkachenko.propertymanagement.core.network.model.user.NetworkUser
 import org.stkachenko.propertymanagement.core.network.model.user.UpdateUserProfileRequest
@@ -72,4 +73,6 @@ interface ProtectedNetworkDataSource {
     suspend fun deleteRentalOffers(ids: List<String>)
     suspend fun completeUserProfile(completeUserProfileRequest: CompleteUserProfileRequest): NetworkUser
     suspend fun getUserByToken(): NetworkUser
+
+    suspend fun changePassword(changePasswordRequest: ChangePasswordRequest): NetworkUser
 }

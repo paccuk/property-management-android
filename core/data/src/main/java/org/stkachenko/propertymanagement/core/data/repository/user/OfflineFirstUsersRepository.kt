@@ -11,6 +11,7 @@ import org.stkachenko.propertymanagement.core.database.model.user.asExternalMode
 import org.stkachenko.propertymanagement.core.datastore.user_preferences.PmPreferencesDataSource
 import org.stkachenko.propertymanagement.core.model.data.user.User
 import org.stkachenko.propertymanagement.core.network.ProtectedNetworkDataSource
+import org.stkachenko.propertymanagement.core.network.model.user.ChangePasswordRequest
 import org.stkachenko.propertymanagement.core.network.model.user.CompleteUserProfileRequest
 import org.stkachenko.propertymanagement.core.network.model.user.UpdateUserProfileRequest
 import javax.inject.Inject
@@ -72,6 +73,18 @@ internal class OfflineFirstUsersRepository @Inject constructor(
         val userEntity = networkUser.asEntity()
         userDao.upsertUsers(listOf(userEntity))
         return userEntity.asExternalModel()
+    }
+
+    override suspend fun changePassword(
+        currentPassword: String,
+        newPassword: String,
+    ) {
+        network.changePassword(
+            ChangePasswordRequest(
+                currentPassword = currentPassword,
+                newPassword = newPassword,
+            )
+        )
     }
 
     override suspend fun syncWith(

@@ -12,9 +12,9 @@ fun NavController.navigateToProfile(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.profileScreen(
-    onEditProfileClick: () -> Unit,
+    onNavigateToLogin: () -> Unit,
 ) {
     composable(route = ProfileDestination.PROFILE_ROUTE) {
-        ProfileRoute(onEditProfileClick = onEditProfileClick)
+        ProfileRoute(onNavigateToLogin = onNavigateToLogin)
     }
 }

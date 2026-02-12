@@ -45,6 +45,6 @@ fun PmNavHost(
         propertiesScreen(onPropertyClick = navController::navigateToPropertyDetails)
         propertyDetailsScreen(onPropertyIdNotFound = navController::popBackStack)
 
-        profileScreen(onEditProfileClick = navController::navigateToProfile)
+        profileScreen(onNavigateToLogin = { appState.navigateToLogin() })
     }
 }

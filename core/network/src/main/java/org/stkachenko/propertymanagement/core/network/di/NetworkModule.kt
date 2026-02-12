@@ -5,6 +5,7 @@ import androidx.tracing.trace
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.util.DebugLogger
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +25,7 @@ import org.stkachenko.propertymanagement.core.network.authenticator.TokenAuthent
 import org.stkachenko.propertymanagement.core.network.interceptor.TokenInterceptor
 import org.stkachenko.propertymanagement.core.network.interceptor.UnlockingInterceptor
 import org.stkachenko.propertymanagement.core.network.interceptor.UuidInterceptor
+import org.stkachenko.propertymanagement.core.network.retrofit.AuthRetrofitNetwork
 import org.stkachenko.propertymanagement.core.storage.KeystoreTokenStorage
 import javax.inject.Named
 import javax.inject.Singleton
@@ -37,6 +39,7 @@ internal object NetworkModule {
     fun providesNetworkJson(): Json = Json {
         ignoreUnknownKeys = true
     }
+
 
     @Provides
     @Singleton
@@ -62,8 +65,7 @@ internal object NetworkModule {
     fun protectedOkHttpCallFactory(
         tokenStorage: KeystoreTokenStorage,
         authNetwork: dagger.Lazy<AuthNetworkDataSource>,
-        isLogoutStarted: () -> Boolean,
-        startLogout: () -> Unit,
+        logoutState: LogoutState,
         @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
     ): Call.Factory = trace("ProtectedOkHttpClient") {
         val mutex = Mutex()
@@ -83,8 +85,8 @@ internal object NetworkModule {
                 TokenAuthenticator(
                     tokenStorage = tokenStorage,
                     authNetwork = authNetwork.get(),
-                    isLogoutStarted = isLogoutStarted,
-                    startLogout = startLogout,
+                    isLogoutStarted = logoutState::isLogoutStarted,
+                    startLogout = logoutState::startLogout,
                     refreshMutex = mutex,
                     ioDispatcher = ioDispatcher,
                 )
@@ -96,7 +98,7 @@ internal object NetworkModule {
     @Provides
     @Singleton
     fun imageLoader(
-        okHttpCallFactory: dagger.Lazy<Call.Factory>,
+        @Named("protected") okHttpCallFactory: dagger.Lazy<Call.Factory>,
         @ApplicationContext application: Context,
     ): ImageLoader = trace("PmImageLoader") {
         ImageLoader.Builder(application)

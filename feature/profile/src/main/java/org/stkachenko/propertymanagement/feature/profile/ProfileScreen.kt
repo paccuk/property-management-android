@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,25 +21,37 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.stkachenko.propertymanagement.core.designsystem.component.PmOverlayBuildingHouseLoading
 import org.stkachenko.propertymanagement.core.model.data.userdata.DarkThemeConfig
+import org.stkachenko.propertymanagement.core.ui.profile.LocaleUiState
 import org.stkachenko.propertymanagement.core.ui.profile.ProfileContent
 import org.stkachenko.propertymanagement.core.ui.profile.ProfileUiState
 import org.stkachenko.propertymanagement.core.ui.profile.SettingsUiState
 
 @Composable
 internal fun ProfileRoute(
+    onNavigateToLogin: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = hiltViewModel(),
 ) {
     val profileState by viewModel.profileUiState.collectAsStateWithLifecycle()
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
+    val localeUiState by viewModel.localeUiState.collectAsStateWithLifecycle()
+    val isLoggedOut by viewModel.isLoggedOut.collectAsStateWithLifecycle()
+
+    LaunchedEffect(isLoggedOut) {
+        if (isLoggedOut) {
+            onNavigateToLogin()
+        }
+    }
 
     ProfileScreen(
         profileState = profileState,
         settingsUiState = settingsUiState,
+        localeUiState = localeUiState,
         onEditProfileClick = viewModel::updateUserProfile,
         onChangeDarkThemeConfig = viewModel::updateDarkThemeConfig,
-        onLanguageChangeClick = viewModel::onLanguageChangeClick,
-        onLogoutClick = viewModel::onLogoutClick,
+        onLanguageChange = viewModel::changeLanguage,
+        onLogout = viewModel::logout,
+        onChangePassword = viewModel::changePassword,
         modifier = modifier,
     )
 }
@@ -47,11 +60,13 @@ internal fun ProfileRoute(
 fun ProfileScreen(
     profileState: ProfileUiState,
     settingsUiState: SettingsUiState,
+    localeUiState: LocaleUiState,
     onEditProfileClick: (String, String, String, String) -> Unit,
     modifier: Modifier = Modifier,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
-    onLanguageChangeClick: () -> Unit,
-    onLogoutClick: () -> Unit,
+    onLanguageChange: (String) -> Unit,
+    onChangePassword: (String, String, String) -> Unit,
+    onLogout: () -> Unit,
 ) {
     val isProfileLoading = profileState is ProfileUiState.Loading
 
@@ -64,10 +79,12 @@ fun ProfileScreen(
         ProfileContent(
             profileState = profileState,
             settingsUiState = settingsUiState,
+            localeUiState = localeUiState,
             onEditProfileClick = onEditProfileClick,
             onChangeDarkThemeConfig = onChangeDarkThemeConfig,
-            onLanguageChangeClick = onLanguageChangeClick,
-            onLogoutClick = onLogoutClick,
+            onLanguageChange = onLanguageChange,
+            onChangePassword = onChangePassword,
+            onLogout = onLogout,
         )
 
         AnimatedVisibility(

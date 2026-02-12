@@ -153,7 +153,7 @@ internal fun PmApp(
                         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                             containerColor = Color.Transparent,
                         ),
-                        onActionClick = { appState.navigateToNotifications() },
+                        onActionClick = { TODO("appState.navigateToNotifications()") },
                     )
                 }
 

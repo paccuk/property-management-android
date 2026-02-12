@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.stkachenko.propertymanagement.core.data.repository.auth.AuthRepository
+import org.stkachenko.propertymanagement.core.data.repository.auth.AuthRepositoryImpl
 import org.stkachenko.propertymanagement.core.data.repository.chat.ChatParticipantsRepository
 import org.stkachenko.propertymanagement.core.data.repository.chat.ChatsRepository
 import org.stkachenko.propertymanagement.core.data.repository.chat.MessagesRepository
@@ -28,6 +30,8 @@ import org.stkachenko.propertymanagement.core.data.repository.user.OfflineFirstU
 import org.stkachenko.propertymanagement.core.data.repository.user.UserRepository
 import org.stkachenko.propertymanagement.core.data.repository.userdata.OfflineFirstUserDataRepository
 import org.stkachenko.propertymanagement.core.data.repository.userdata.UserDataRepository
+import org.stkachenko.propertymanagement.core.data.repository.usersession.UserSessionRepository
+import org.stkachenko.propertymanagement.core.data.repository.usersession.UserSessionRepositoryImpl
 import org.stkachenko.propertymanagement.core.data.util.ConnectivityManagerNetworkMonitor
 import org.stkachenko.propertymanagement.core.data.util.NetworkMonitor
 import org.stkachenko.propertymanagement.core.data.util.TimeZoneBroadcastMonitor
@@ -106,6 +110,16 @@ abstract class DataModule {
     internal abstract fun bindsNetworkMonitor(
         networkMonitor: ConnectivityManagerNetworkMonitor,
     ): NetworkMonitor
+
+    @Binds
+    internal abstract fun bindsAuthRepository(
+        authRepository: AuthRepositoryImpl,
+    ): AuthRepository
+
+    @Binds
+    internal abstract fun bindsUserSessionRepository(
+        userSessionRepository: UserSessionRepositoryImpl,
+    ): UserSessionRepository
 
     @Binds
     internal abstract fun binds(impl: TimeZoneBroadcastMonitor): TimeZoneMonitor

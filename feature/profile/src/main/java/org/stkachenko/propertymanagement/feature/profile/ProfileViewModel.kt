@@ -12,12 +12,15 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.stkachenko.propertymanagement.core.data.repository.user.UserRepository
 import org.stkachenko.propertymanagement.core.data.repository.userdata.UserDataRepository
 import org.stkachenko.propertymanagement.core.data.repository.usersession.UserSessionRepository
+import org.stkachenko.propertymanagement.core.domain.user.ChangePasswordUseCase
 import org.stkachenko.propertymanagement.core.domain.user.GetUserByIdUseCase
+import org.stkachenko.propertymanagement.core.domain.user.LogOutUseCase
 import org.stkachenko.propertymanagement.core.domain.user.UpdateUserUseCase
+import org.stkachenko.propertymanagement.core.localization.AppLocaleManager
 import org.stkachenko.propertymanagement.core.model.data.userdata.DarkThemeConfig
+import org.stkachenko.propertymanagement.core.ui.profile.LocaleUiState
 import org.stkachenko.propertymanagement.core.ui.profile.ProfileUiState
 import org.stkachenko.propertymanagement.core.ui.profile.SettingsUiState
 import org.stkachenko.propertymanagement.core.ui.profile.UserEditableSettings
@@ -28,9 +31,22 @@ import kotlin.time.Duration.Companion.seconds
 class ProfileViewModel @Inject constructor(
     private val userDataRepository: UserDataRepository,
     private val updateUser: UpdateUserUseCase,
+    private val appLocaleManager: AppLocaleManager,
+    private val logOutUseCase: LogOutUseCase,
+    private val changePasswordUseCase: ChangePasswordUseCase,
     getUser: GetUserByIdUseCase,
     userSessionRepository: UserSessionRepository,
 ) : ViewModel() {
+
+    private val _localeUiState = MutableStateFlow(LocaleUiState())
+    val localeUiState: StateFlow<LocaleUiState> = _localeUiState
+
+    private val _isLoggedOut = MutableStateFlow(false)
+    val isLoggedOut = _isLoggedOut.asStateFlow()
+
+    init {
+        loadInitialLanguage()
+    }
 
     val profileUiState: StateFlow<ProfileUiState> =
         userSessionRepository.userSessionData
@@ -70,6 +86,16 @@ class ProfileViewModel @Inject constructor(
                 initialValue = SettingsUiState.Loading
             )
 
+    private fun loadInitialLanguage() {
+        val currentLanguage = appLocaleManager.getLanguageCode()
+        _localeUiState.value = _localeUiState.value.copy(selectedLanguage = currentLanguage)
+    }
+
+    fun changeLanguage(languageCode: String) {
+        appLocaleManager.changeLanguage(languageCode)
+        _localeUiState.value = _localeUiState.value.copy(selectedLanguage = languageCode)
+    }
+
     fun updateUserProfile(
         firstName: String,
         lastName: String,
@@ -95,4 +121,22 @@ class ProfileViewModel @Inject constructor(
             userDataRepository.setDarkThemeConfig(darkThemeConfig)
         }
     }
+
+    fun logout() {
+        viewModelScope.launch {
+            logOutUseCase()
+            _isLoggedOut.value = true
+        }
+    }
+
+    fun changePassword(
+        oldPassword: String,
+        newPassword: String,
+        confirmPassword: String,
+    ) {
+        viewModelScope.launch {
+            changePasswordUseCase(oldPassword, newPassword, confirmPassword)
+        }
+    }
 }
+

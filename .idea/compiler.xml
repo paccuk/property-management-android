@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11">
-      <module name="property-management-android.app" target="21" />
-      <module name="property-management-android.core.data" target="21" />
-      <module name="property-management-android.core.database" target="21" />
-      <module name="property-management-android.core.datastore" target="21" />
-      <module name="property-management-android.core.datastore-proto" target="21" />
-      <module name="property-management-android.core.designsystem" target="21" />
-      <module name="property-management-android.core.domain" target="21" />
-      <module name="property-management-android.core.network" target="21" />
-      <module name="property-management-android.core.ui" target="21" />
-      <module name="property-management-android.feature.chats" target="21" />
-      <module name="property-management-android.feature.home" target="21" />
-      <module name="property-management-android.feature.profile" target="21" />
-      <module name="property-management-android.feature.properties" target="21" />
-      <module name="property-management-android.feature.statistics" target="21" />
-      <module name="propertymanagement.feature.home" target="21" />
-      <module name="propertymanagement.sync.work" target="21" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="11" />
   </component>
 </project>

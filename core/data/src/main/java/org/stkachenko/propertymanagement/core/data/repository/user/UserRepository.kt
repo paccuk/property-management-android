@@ -22,4 +22,9 @@ interface UserRepository : Syncable {
         phone: String,
         avatarImageUrl: String,
     ): User
+
+    suspend fun changePassword(
+        currentPassword: String,
+        newPassword: String,
+    )
 }

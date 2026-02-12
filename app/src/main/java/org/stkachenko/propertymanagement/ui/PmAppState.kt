@@ -20,6 +20,7 @@ import org.stkachenko.propertymanagement.core.data.util.NetworkMonitor
 import org.stkachenko.propertymanagement.core.data.util.TimeZoneMonitor
 import org.stkachenko.propertymanagement.core.navigation_contract.ProfileDestination.PROFILE_ROUTE
 import org.stkachenko.propertymanagement.core.navigation_contract.PropertiesDestinations.PROPERTIES_ROUTE
+import org.stkachenko.propertymanagement.feature.auth.navigation.navigateToLogin
 import org.stkachenko.propertymanagement.feature.profile.navigation.navigateToProfile
 import org.stkachenko.propertymanagement.navigation.TopLevelDestination
 import org.stkachenko.propertymanagement.navigation.TopLevelDestination.*
@@ -106,5 +107,12 @@ class PmAppState(
         }
     }
 
-    fun navigateToNotifications(): Unit = TODO()
+    fun navigateToLogin(): Unit = navController.navigateToLogin(
+        navOptions {
+            popUpTo(navController.graph.findStartDestination().id) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
+    )
 }
