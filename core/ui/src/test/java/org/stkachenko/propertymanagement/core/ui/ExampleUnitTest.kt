@@ -1,4 +1,4 @@
-package org.sandw.feature.settings
+package org.stkachenko.propertymanagement.core.ui
 
 import org.junit.Test
 

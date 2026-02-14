@@ -1,4 +1,4 @@
-package org.sandw.feature.settings
+package org.stkachenko.propertymanagement.core.ui
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("org.sandw.feature.settings.test", appContext.packageName)
+        assertEquals("org.stkachenko.core.ui.test", appContext.packageName)
     }
 }
