@@ -1,5 +1,6 @@
 plugins {
     `kotlin-dsl`
+    alias(libs.plugins.android.lint)
 }
 
 group = "org.stkachenko.propertymanagement.buildlogic"
@@ -17,12 +18,14 @@ kotlin {
 
 dependencies {
     compileOnly(libs.android.gradlePlugin)
-    compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.android.tools.common)
     compileOnly(libs.compose.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
     compileOnly(libs.room.gradlePlugin)
+    compileOnly(libs.spotless.gradlePlugin)
     implementation(libs.truth)
+    lintChecks(libs.androidx.lint.gradle)
 }
 
 tasks {
@@ -35,44 +38,52 @@ tasks {
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "propertymanagement.android.application"
+            id = libs.plugins.propertymanagement.android.application.asProvider().get().pluginId
             implementationClass = "AndroidApplicationConventionPlugin"
         }
         register("androidApplicationCompose") {
-            id = "propertymanagement.android.application.compose"
+            id = libs.plugins.propertymanagement.android.application.compose.get().pluginId
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
         register("androidLibraryCompose") {
-            id = "propertymanagement.android.library.compose"
+            id = libs.plugins.propertymanagement.android.library.compose.get().pluginId
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
         register("androidLibrary") {
-            id = "propertymanagement.android.library"
+            id = libs.plugins.propertymanagement.android.library.asProvider().get().pluginId
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("androidFeature") {
-            id = "propertymanagement.android.feature"
+            id = libs.plugins.propertymanagement.android.feature.get().pluginId
             implementationClass = "AndroidFeatureConventionPlugin"
         }
         register("androidTest") {
-            id = "propertymanagement.android.test"
+            id = libs.plugins.propertymanagement.android.test.get().pluginId
             implementationClass = "AndroidTestConventionPlugin"
         }
         register("androidRoom") {
-            id = "propertymanagement.android.room"
+            id = libs.plugins.propertymanagement.android.room.get().pluginId
             implementationClass = "AndroidRoomConventionPlugin"
         }
         register("hilt") {
-            id = "propertymanagement.hilt"
+            id = libs.plugins.propertymanagement.hilt.get().pluginId
             implementationClass = "HiltConventionPlugin"
         }
+        register("androidLint") {
+            id = libs.plugins.propertymanagement.android.lint.get().pluginId
+            implementationClass = "AndroidLintConventionPlugin"
+        }
         register("jvmLibrary") {
-            id = "propertymanagement.jvm.library"
+            id = libs.plugins.propertymanagement.jvm.library.get().pluginId
             implementationClass = "JvmLibraryConventionPlugin"
         }
-        register("androidApplicationFlavors") {
-            id = "propertymanagement.android.application.flavors"
+        register("androidFlavors") {
+            id = libs.plugins.propertymanagement.android.application.flavors.get().pluginId
             implementationClass = "AndroidApplicationFlavorsConventionPlugin"
+        }
+        register("root") {
+            id = libs.plugins.propertymanagement.root.get().pluginId
+            implementationClass = "RootPlugin"
         }
     }
 }

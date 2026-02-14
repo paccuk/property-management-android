@@ -5,7 +5,9 @@ plugins {
     alias(libs.plugins.propertymanagement.android.application.compose)
     alias(libs.plugins.propertymanagement.android.application.flavors)
     alias(libs.plugins.propertymanagement.hilt)
+    alias(libs.plugins.baselineprofile)
     alias(libs.plugins.roborazzi)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -14,12 +16,9 @@ android {
     defaultConfig {
         applicationId = "org.stkachenko.propertymanagement"
         versionCode = 1
-        versionName = "0.1.0" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionName = "0.1.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -27,7 +26,8 @@ android {
             applicationIdSuffix = PmBuildType.DEBUG.applicationIdSuffix
         }
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = providers.gradleProperty("minifyWithR8")
+                .map(String::toBooleanStrict).getOrElse(true)
             applicationIdSuffix = PmBuildType.RELEASE.applicationIdSuffix
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -36,7 +36,7 @@ android {
 
             // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
             signingConfig = signingConfigs.named("debug").get()
-//            baselineProfile.automaticGenerationDuringBuild = true
+            baselineProfile.automaticGenerationDuringBuild = true
         }
     }
 
@@ -45,19 +45,10 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
-
-    androidResources {
-        generateLocaleConfig = true
-    }
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
-    // Feature Modules
     implementation(projects.feature.properties)
     implementation(projects.feature.profile)
     implementation(projects.feature.chats)
@@ -65,14 +56,12 @@ dependencies {
     implementation(projects.feature.notifications)
     implementation(projects.feature.auth)
 
-    // Core Project Modules
     implementation(projects.core.ui)
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
     implementation(projects.core.model)
     implementation(projects.core.domain)
 
-    // Core Android Libraries
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3.adaptive)
     implementation(libs.androidx.compose.material3.adaptive.layout)
@@ -89,43 +78,37 @@ dependencies {
 //    implementation(libs.kotlinx.coroutines.guava)
     implementation(libs.coil.kt)
 
-    // Hilt Dependency Injection
     ksp(libs.hilt.compiler)
 
-    // Testing Dependencies
     debugImplementation(libs.androidx.compose.ui.testManifest)
-//    debugImplementation(projects.uiTestHiltManifest)
 
     kspTest(libs.hilt.compiler)
 
 //    testImplementation(projects.core.dataTest)
     testImplementation(libs.hilt.android.testing)
-//    testImplementation(projects.sync.syncTest)
+    testImplementation(libs.kotlin.test)
 
-//    testDemoImplementation(libs.robolectric)
-//    testDemoImplementation(libs.roborazzi)
+    testDemoImplementation(libs.androidx.navigation.testing)
+    testDemoImplementation(libs.robolectric)
+    testDemoImplementation(libs.roborazzi)
 //    testDemoImplementation(projects.core.screenshotTesting)
+    testDemoImplementation(projects.core.testing)
 
-    androidTestImplementation(kotlin("test"))
     androidTestImplementation(projects.core.testing)
 //    androidTestImplementation(projects.core.dataTest)
-//    androidTestImplementation(projects.core.datastoreTest)
     androidTestImplementation(libs.androidx.test.espresso.core)
-//    androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.androidx.compose.ui.test)
     androidTestImplementation(libs.hilt.android.testing)
+    androidTestImplementation(libs.kotlin.test)
 
 //    baselineProfile(projects.benchmarks)
-
-    // Debugging Dependencies
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
 }
 
-//baselineProfile {
-//    automaticGenerationDuringBuild = false
-//}
-//
-//dependencyGuard {
-//    configuration("prodReleaseRuntimeClasspath")
-//}
+baselineProfile {
+    automaticGenerationDuringBuild = false
+    dexLayoutOptimization = true
+}
+
+dependencyGuard {
+    configuration("prodReleaseRuntimeClasspath")
+}
