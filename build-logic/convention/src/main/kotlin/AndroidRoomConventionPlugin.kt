@@ -8,7 +8,6 @@ import org.gradle.kotlin.dsl.dependencies
 import org.stkachenko.propertymanagement.convention.libs
 
 class AndroidRoomConventionPlugin : Plugin<Project> {
-
     override fun apply(target: Project) {
         with(target) {
             apply(plugin = "androidx.room")
