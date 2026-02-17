@@ -37,6 +37,7 @@
             <option value="$PROJECT_DIR$/core/navigation-contract" />
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/core/notifications" />
+            <option value="$PROJECT_DIR$/core/screenshot-testing" />
             <option value="$PROJECT_DIR$/core/storage" />
             <option value="$PROJECT_DIR$/core/testing" />
             <option value="$PROJECT_DIR$/core/ui" />
@@ -47,6 +48,7 @@
             <option value="$PROJECT_DIR$/feature/profile" />
             <option value="$PROJECT_DIR$/feature/properties" />
             <option value="$PROJECT_DIR$/feature/statistics" />
+            <option value="$PROJECT_DIR$/ui-test-hilt-manifest" />
           </set>
         </option>
       </GradleProjectSettings>

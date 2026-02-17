@@ -8,6 +8,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.stkachenko.propertymanagement.convention.configureFlavors
 import org.stkachenko.propertymanagement.convention.configureKotlinAndroid
 import org.stkachenko.propertymanagement.convention.configurePrintApksTask
+import org.stkachenko.propertymanagement.convention.configureSpotlessForAndroid
 import org.stkachenko.propertymanagement.convention.disableUnnecessaryAndroidTests
 import org.stkachenko.propertymanagement.convention.libs
 
@@ -30,6 +31,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 configurePrintApksTask(this)
                 disableUnnecessaryAndroidTests(target)
             }
+            configureSpotlessForAndroid()
             dependencies {
                 "androidTestImplementation"(libs.findLibrary("kotlin.test").get())
                 "testImplementation"(libs.findLibrary("kotlin.test").get())

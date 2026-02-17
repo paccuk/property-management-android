@@ -13,7 +13,7 @@ dependencies {
     api(projects.core.model)
 
 
-//    implementation(libs.androidx.test.rules)
+    implementation(libs.androidx.test.rules)
     implementation(libs.hilt.android.testing)
     implementation(libs.kotlinx.datetime)
 }

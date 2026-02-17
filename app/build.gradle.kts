@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "0.1.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "org.stkachenko.propertymanagement.core.testing.PmTestRunner"
     }
 
     buildTypes {
@@ -81,21 +81,20 @@ dependencies {
     ksp(libs.hilt.compiler)
 
     debugImplementation(libs.androidx.compose.ui.testManifest)
+    debugImplementation(projects.uiTestHiltManifest)
 
     kspTest(libs.hilt.compiler)
 
-//    testImplementation(projects.core.dataTest)
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.kotlin.test)
 
     testDemoImplementation(libs.androidx.navigation.testing)
     testDemoImplementation(libs.robolectric)
     testDemoImplementation(libs.roborazzi)
-//    testDemoImplementation(projects.core.screenshotTesting)
+    testDemoImplementation(projects.core.screenshotTesting)
     testDemoImplementation(projects.core.testing)
 
     androidTestImplementation(projects.core.testing)
-//    androidTestImplementation(projects.core.dataTest)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test)
     androidTestImplementation(libs.hilt.android.testing)
