@@ -6,10 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.stkachenko.propertymanagement.core.data.repository.auth.AuthRepository
-import org.stkachenko.propertymanagement.core.data.repository.usersession.UserSessionRepository
 import org.stkachenko.propertymanagement.core.domain.user.LoginUseCase
 import org.stkachenko.propertymanagement.core.ui.auth.LoginUiState
 import javax.inject.Inject

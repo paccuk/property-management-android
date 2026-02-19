@@ -43,7 +43,6 @@ import org.stkachenko.propertymanagement.R
 import org.stkachenko.propertymanagement.core.designsystem.component.PmBackground
 import org.stkachenko.propertymanagement.core.designsystem.component.PmNavigationSuiteScaffold
 import org.stkachenko.propertymanagement.core.designsystem.component.PmTopAppBar
-import org.stkachenko.propertymanagement.core.model.data.user.UserRole
 import org.stkachenko.propertymanagement.core.model.data.usersession.UserSessionData
 import org.stkachenko.propertymanagement.navigation.PmNavHost
 import org.stkachenko.propertymanagement.navigation.TopLevelDestination
@@ -150,8 +149,8 @@ internal fun PmApp(
                         actionIconContentDescription = stringResource(
                             id = notificationsR.string.feature_notifications_top_app_bar_action_icon_description,
                         ),
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                            containerColor = Color.Transparent,
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = Color.Transparent
                         ),
                         onActionClick = { TODO("appState.navigateToNotifications()") },
                     )

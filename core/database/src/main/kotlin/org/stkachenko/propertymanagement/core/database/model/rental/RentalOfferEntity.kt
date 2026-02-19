@@ -8,7 +8,6 @@ import org.stkachenko.propertymanagement.core.database.model.property.PropertyEn
 import org.stkachenko.propertymanagement.core.database.model.user.UserEntity
 import org.stkachenko.propertymanagement.core.model.data.rental.RentalOffer
 import java.util.Date
-import kotlin.time.Duration
 
 @Entity(
     tableName = "rental_offers",

@@ -30,7 +30,7 @@ interface PaymentDao {
     @Query("SELECT * FROM payments WHERE updatedAt > :timestamp")
     suspend fun getPaymentsUpdatedAfter(timestamp: Long): List<PaymentEntity>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnorePayments(entities: List<PaymentEntity>): List<Long>
 
     @Upsert

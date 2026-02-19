@@ -28,7 +28,7 @@ interface PaymentScheduleDao {
     )
     fun getPaymentScheduleEntities(ids: Set<String>): Flow<List<PaymentScheduleEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnorePaymentSchedules(entities: List<PaymentScheduleEntity>): List<Long>
 
     @Upsert

@@ -27,7 +27,7 @@ interface RentalOfferDao {
     )
     fun getRentalOfferEntitiesByPropertyId(propertyId: String): Flow<List<RentalOfferEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnoreRentalOffers(entities: List<RentalOfferEntity>): List<Long>
 
     @Upsert

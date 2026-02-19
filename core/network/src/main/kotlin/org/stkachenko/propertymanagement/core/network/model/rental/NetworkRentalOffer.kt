@@ -1,7 +1,6 @@
 package org.stkachenko.propertymanagement.core.network.model.rental
 
 import kotlinx.serialization.Serializable
-import kotlin.time.Duration
 
 @Serializable
 data class NetworkRentalOffer(

@@ -27,7 +27,7 @@ interface ChatDao {
     )
     fun getChatEntities(ids: Set<String>): Flow<List<ChatEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnoreChats(chatEntities: List<ChatEntity>): List<Long>
 
     @Upsert

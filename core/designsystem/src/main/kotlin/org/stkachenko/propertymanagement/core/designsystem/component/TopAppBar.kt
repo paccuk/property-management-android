@@ -26,7 +26,7 @@ fun PmTopAppBar(
     actionIcon: ImageVector,
     actionIconContentDescription: String,
     modifier: Modifier = Modifier,
-    colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
     onActionClick: () -> Unit = {},
     ) {
     CenterAlignedTopAppBar(

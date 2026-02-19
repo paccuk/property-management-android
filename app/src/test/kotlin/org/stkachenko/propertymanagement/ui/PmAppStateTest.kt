@@ -16,7 +16,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import org.stkachenko.propertymanagement.core.designsystem.theme.backgroundLight
 import org.stkachenko.propertymanagement.core.testing.util.TestNetworkMonitor
 import org.stkachenko.propertymanagement.core.testing.util.TestTimeZoneMonitor
 import kotlin.test.assertEquals

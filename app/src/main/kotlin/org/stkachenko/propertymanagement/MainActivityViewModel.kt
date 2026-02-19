@@ -12,7 +12,6 @@ import org.stkachenko.propertymanagement.MainActivityUiState.Loading
 import org.stkachenko.propertymanagement.MainActivityUiState.Success
 import org.stkachenko.propertymanagement.core.data.repository.usersession.UserSessionRepository
 import org.stkachenko.propertymanagement.core.model.data.userdata.UserData
-import org.stkachenko.propertymanagement.core.model.data.user.UserRole
 import org.stkachenko.propertymanagement.core.model.data.usersession.UserSessionData
 import javax.inject.Inject
 

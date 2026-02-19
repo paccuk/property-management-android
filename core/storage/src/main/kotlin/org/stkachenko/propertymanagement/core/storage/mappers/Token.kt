@@ -26,7 +26,7 @@ fun Tokens.encrypt(encryptor: Encryptor, secretKey: SecretKey): AuthTokens {
         .build()
 }
 
-fun TokenData.decrypt(encryptor: Encryptor, secretKey: SecretKey): String? {
+fun TokenData.decrypt(encryptor: Encryptor, secretKey: SecretKey): String {
     val decryptedToken = encryptor.decrypt(
         token = token,
         iv = iv,

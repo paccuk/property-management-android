@@ -30,7 +30,7 @@ interface MessageDao {
     )
     fun getFilteredMessagesByChatId(chatId: String, after: Long, limit: Int): Flow<List<MessageEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnoreMessages(messageEntities: List<MessageEntity>): List<Long>
 
     @Upsert

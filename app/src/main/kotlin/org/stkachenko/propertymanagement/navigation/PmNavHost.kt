@@ -9,7 +9,6 @@ import org.stkachenko.propertymanagement.feature.auth.navigation.navigateToCompl
 import org.stkachenko.propertymanagement.feature.auth.navigation.navigateToLogin
 import org.stkachenko.propertymanagement.feature.auth.navigation.navigateToRegistration
 import org.stkachenko.propertymanagement.feature.auth.navigation.registrationScreen
-import org.stkachenko.propertymanagement.feature.profile.navigation.navigateToProfile
 import org.stkachenko.propertymanagement.feature.profile.navigation.profileScreen
 import org.stkachenko.propertymanagement.feature.properties.navigation.navigateToProperties
 import org.stkachenko.propertymanagement.feature.properties.navigation.navigateToPropertyDetails

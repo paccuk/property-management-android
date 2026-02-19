@@ -22,7 +22,7 @@ interface RentalAgreementDao {
     @Query("SELECT * FROM rental_agreements WHERE updatedAt > :timestamp")
     suspend fun getRentalAgreementsUpdatedAfter(timestamp: Long): List<RentalAgreementEntity>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnoreRentalAgreements(entities: List<RentalAgreementEntity>): List<Long>
 
     @Upsert

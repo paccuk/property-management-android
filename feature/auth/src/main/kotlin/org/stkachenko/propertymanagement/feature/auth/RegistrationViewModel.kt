@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.stkachenko.propertymanagement.core.data.repository.auth.AuthRepository
-import org.stkachenko.propertymanagement.core.data.repository.usersession.UserSessionRepository
 import org.stkachenko.propertymanagement.core.ui.auth.RegistrationUiState
 import javax.inject.Inject
 

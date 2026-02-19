@@ -1,7 +1,6 @@
 package org.stkachenko.propertymanagement.core.model.data.rental
 
 import java.util.Date
-import kotlin.time.Duration
 
 data class RentalOffer(
     val id: String,

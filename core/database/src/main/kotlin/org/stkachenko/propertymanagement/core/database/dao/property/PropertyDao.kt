@@ -4,11 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 import org.stkachenko.propertymanagement.core.database.model.property.PropertyEntity
-import org.stkachenko.propertymanagement.core.model.data.property.Property
 
 @Dao
 interface PropertyDao {
@@ -24,7 +22,7 @@ interface PropertyDao {
     @Query(value = "SELECT * FROM properties WHERE updatedAt > :timestamp")
     suspend fun getPropertiesUpdatedAfter(timestamp: Long): List<PropertyEntity>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnoreProperties(entities: List<PropertyEntity>): List<Long>
 
     @Upsert

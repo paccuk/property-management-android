@@ -2,7 +2,6 @@ package org.stkachenko.propertymanagement.core.database.model.chat
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.stkachenko.propertymanagement.core.model.data.chat.Chat
 
 @Entity(
     tableName = "chats",

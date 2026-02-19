@@ -22,7 +22,7 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE updatedAt > :timestamp")
     suspend fun getUsersUpdatedAfter(timestamp: Long): List<UserEntity>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnoreUsers(entities: List<UserEntity>): List<Long>
 
     @Upsert

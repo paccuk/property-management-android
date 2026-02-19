@@ -6,7 +6,6 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.stkachenko.propertymanagement.core.database.model.user.UserEntity
 import org.stkachenko.propertymanagement.core.model.data.property.Property
-import org.stkachenko.propertymanagement.core.model.data.user.User
 
 @Entity(
     tableName = "properties",

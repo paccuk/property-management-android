@@ -27,7 +27,7 @@ interface InvoiceDao {
     )
     fun getInvoiceEntity(invoiceId: String): Flow<InvoiceEntity>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnoreInvoices(entities: List<InvoiceEntity>): List<Long>
 
     @Upsert

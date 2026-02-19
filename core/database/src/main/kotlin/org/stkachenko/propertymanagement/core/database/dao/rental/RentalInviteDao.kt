@@ -19,7 +19,7 @@ interface RentalInviteDao {
     )
     fun getRentalInviteEntity(inviteId: String): Flow<RentalInviteEntity>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertOrIgnoreRentalInvites(entities: List<RentalInviteEntity>): List<Long>
 
     @Upsert

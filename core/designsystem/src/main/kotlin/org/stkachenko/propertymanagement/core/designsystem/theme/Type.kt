@@ -47,7 +47,7 @@ internal val PmTypography = Typography(
         letterSpacing = 0.sp,
         lineHeightStyle = LineHeightStyle(
             alignment = Alignment.Bottom,
-            trim = LineHeightStyle.Trim.None,
+            trim = Trim.None,
         ),
     ),
     titleLarge = TextStyle(
