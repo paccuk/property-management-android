@@ -5,8 +5,7 @@ plugins {
 
 android {
     namespace = "org.stkachenko.propertymanagement.core.data"
-    testOptions.unitTests.isIncludeAndroidResources = true
-
+//    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
