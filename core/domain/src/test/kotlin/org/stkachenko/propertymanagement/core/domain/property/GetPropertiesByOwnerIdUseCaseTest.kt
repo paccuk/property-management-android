@@ -3,12 +3,17 @@ package org.stkachenko.propertymanagement.core.domain.property
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.stkachenko.propertymanagement.core.model.data.property.Property
 import org.stkachenko.propertymanagement.core.testing.repository.TestPropertiesRepository
+import org.stkachenko.propertymanagement.core.testing.util.MainDispatcherRule
 import kotlin.test.assertEquals
 
 class GetPropertiesByOwnerIdUseCaseTest {
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private lateinit var repository: TestPropertiesRepository
     private lateinit var useCase: GetPropertiesByOwnerIdUseCase
